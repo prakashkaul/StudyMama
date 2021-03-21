@@ -16,9 +16,6 @@ Frameworks
 SpringBoot 2.4.4
 https://start.spring.io/
 
-Version 1.0: 21 March 2020
-SpringBoot Basic REST API Security
-
 Dependencies
 ```
 Spring Web
