@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "edcb1efd-c7e3-499b-a725-a958cd3abca0",
+		"name": "StudyMama",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "helloadmin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYxNjU5NzE1MiwiaWF0IjoxNjE2NTk3MTUyfQ.YpPtR4HxQIA7MxNXjhdRK5tDrji4H8Hza_R-qRaEEhW0U1Y9QHneNCpmut9zBypxDa4wg49FIguJ88qLZTZxtQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/helloadmin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"helloadmin"
+					]
+				},
+				"description": "test admin"
+			},
+			"response": []
+		},
+		{
+			"name": "hellouser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYxNjU5NzE1MiwiaWF0IjoxNjE2NTk3MTUyfQ.YpPtR4HxQIA7MxNXjhdRK5tDrji4H8Hza_R-qRaEEhW0U1Y9QHneNCpmut9zBypxDa4wg49FIguJ88qLZTZxtQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/hellouser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hellouser"
+					]
+				},
+				"description": "test admin"
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				},
+				"description": "for login"
+			},
+			"response": []
+		}
+	]
+}
