@@ -8,9 +8,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import sg.com.studymama.component.CustomJwtAuthenticationFilter;
+import sg.com.studymama.component.JwtAuthenticationEntryPoint;
 import sg.com.studymama.service.CustomUserDetailsService;
 
 @Configuration
@@ -19,6 +23,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	CustomUserDetailsService userDetailsService;
+
+	@Autowired
+	private CustomJwtAuthenticationFilter customJwtAuthenticationFilter;
+
+	@Autowired
+	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -29,7 +39,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -38,10 +48,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers("/helloadmin").hasRole("ADMIN")
-				.antMatchers("/hellouser").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/authenticate").permitAll().anyRequest().authenticated()
-				.and().httpBasic();
+		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
+				.antMatchers("/hellouser").hasAnyRole("ADMIN", "USER").antMatchers("/authenticate").permitAll()
+				.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+				.and().
+				// make sure we use stateless session; session won't be used to
+				// store user's state.
+				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//Add a filter to validate the tokens with every request
+		httpSecurity.addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }
