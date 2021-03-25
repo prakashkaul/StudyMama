@@ -28,6 +28,7 @@ public class JwtUtil {
 
 	private String secret;
 	private int jwtExpirationInMs;
+	private int refreshExpirationDateInMs;
 
 	@Value("${jwt.secret}")
 	public void setSecret(String secret) {
@@ -38,15 +39,20 @@ public class JwtUtil {
 	public void setJwtExpirationInMs(int jwtExpirationInMs) {
 		this.jwtExpirationInMs = jwtExpirationInMs;
 	}
+	
+	@Value("${jwt.refreshExpirationDateInMs}")
+	public void setRefreshExpirationDateInMs(int refreshExpirationDateInMs) {
+		this.refreshExpirationDateInMs = refreshExpirationDateInMs;
+	}
 
 	// generate token for user
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
-		if (roles.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+		if (roles.contains(new SimpleGrantedAuthority("ADMIN"))) {
 			claims.put("isAdmin", true);
 		}
-		if (roles.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+		if (roles.contains(new SimpleGrantedAuthority("USER"))) {
 			claims.put("isUser", true);
 		}
 		return doGenerateToken(claims, userDetails.getUsername());
@@ -56,6 +62,14 @@ public class JwtUtil {
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
+	}
+	
+	public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
+
+		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + refreshExpirationDateInMs))
+				.signWith(SignatureAlgorithm.HS512, secret).compact();
+
 	}
 
 	public boolean validateToken(String authToken) {
@@ -81,10 +95,10 @@ public class JwtUtil {
 		Boolean isAdmin = claims.get("isAdmin", Boolean.class);
 		Boolean isUser = claims.get("isUser", Boolean.class);
 		if (isAdmin != null && isAdmin == true) {
-			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+			roles = Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
 		}
 		if (isUser != null && isUser == true) {
-			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+			roles = Arrays.asList(new SimpleGrantedAuthority("USER"));
 		}
 		return roles;
 	}
