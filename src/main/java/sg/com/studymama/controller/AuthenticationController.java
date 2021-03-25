@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.com.studymama.model.AuthenticationRequest;
 import sg.com.studymama.model.AuthenticationResponse;
+import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.JwtUtil;
 
@@ -45,5 +46,10 @@ public class AuthenticationController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new AuthenticationResponse(token));
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 }

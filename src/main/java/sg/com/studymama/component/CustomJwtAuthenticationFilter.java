@@ -34,7 +34,6 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 			// JWT Token is in the form "Bearer token". Remove Bearer word and
 			// get only the Token
 			String jwtToken = extractJwtFromRequest(request);
-
 			if (StringUtils.hasText(jwtToken) && jwtTokenUtil.validateToken(jwtToken)) {
 				UserDetails userDetails = new User(jwtTokenUtil.getUsernameFromToken(jwtToken), "",
 						jwtTokenUtil.getRolesFromToken(jwtToken));
@@ -45,8 +44,6 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 				// that the current user is authenticated. So it passes the
 				// Spring Security Configurations successfully.
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-			} else {
-				System.out.println("Cannot set the Security Context");
 			}
 		} catch (ExpiredJwtException ex) {
 			request.setAttribute("exception", ex);

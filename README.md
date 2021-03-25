@@ -26,4 +26,29 @@ Highly customizable authentication and access-control framework for Spring appli
 
 JSON Web Token Security
 JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+
+Spring Data JPA
+Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate
+
+MySQL Driver
+MySQL JDBC and R2DBC driver.
+```
+
+MySQL Setup
+-
+
+**Schema**
+```
+CREATE SCHEMA `new_schema` ;
+```
+
+**User Table**
+```
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```

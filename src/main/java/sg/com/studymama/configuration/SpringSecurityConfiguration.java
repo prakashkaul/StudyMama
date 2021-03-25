@@ -49,13 +49,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
-				.antMatchers("/hellouser").hasAnyRole("ADMIN", "USER").antMatchers("/authenticate").permitAll()
-				.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-				.and().
+				.antMatchers("/hellouser").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/authenticate", "/register")
+				.permitAll().anyRequest().authenticated().and().exceptionHandling()
+				.authenticationEntryPoint(unauthorizedHandler).and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		//Add a filter to validate the tokens with every request
+		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }
