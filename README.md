@@ -11,6 +11,10 @@ Practice Module Project
 
 **Language:** Java SE Development Kit 8u281 https://www.oracle.com/sg/java/technologies/javase/javase-jdk8-downloads.html
 
+**Logs Analysis**
+ElastiSearch, Logstash, Kibana (ELK)
+ELK stack gives you the ability to aggregate logs from all your systems and applications, analyze these logs, and create visualizations for application and infrastructure monitoring, faster troubleshooting, security analytics
+
 Frameworks
 -
 SpringBoot 2.4.4
