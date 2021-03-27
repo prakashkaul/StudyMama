@@ -16,7 +16,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYxNjU5NzE1MiwiaWF0IjoxNjE2NTk3MTUyfQ.YpPtR4HxQIA7MxNXjhdRK5tDrji4H8Hza_R-qRaEEhW0U1Y9QHneNCpmut9zBypxDa4wg49FIguJ88qLZTZxtQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE2NjgzNjQ2LCJpYXQiOjE2MTY2ODM2NDZ9.A0QuLIScuMHBT3Gpe0yGygYpMR2XCxRM4JOOZJnBVq_WbTDm-Itp5cTlqGeqQgDT_7hw6x6MIGFXGXddIw964w",
 							"type": "string"
 						}
 					]
@@ -53,7 +53,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTYxNjU5NzE1MiwiaWF0IjoxNjE2NTk3MTUyfQ.YpPtR4HxQIA7MxNXjhdRK5tDrji4H8Hza_R-qRaEEhW0U1Y9QHneNCpmut9zBypxDa4wg49FIguJ88qLZTZxtQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE2NjgzMzY3LCJpYXQiOjE2MTY2ODMzNjd9.06WpClORAixs2pOnKWzVY5Hocszdi_Ac77vwZymPxtzcMZ_rx4ttctZwXR77tEbXesV69GOcyAEa7mQq3gOs5A",
 							"type": "string"
 						}
 					]
@@ -83,10 +83,16 @@
 			"name": "authenticate",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "isRefreshToken",
+						"value": "true",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+					"raw": "{\r\n    \"username\":\"user\",\r\n    \"password\":\"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -107,6 +113,51 @@
 				"description": "for login"
 			},
 			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"user\",\r\n    \"password\":\"user\",\r\n    \"role\":\"USER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refreshtoken",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Bearer Token",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE2NjgzNjQ2LCJpYXQiOjE2MTY2ODM2NDZ9.A0QuLIScuMHBT3Gpe0yGygYpMR2XCxRM4JOOZJnBVq_WbTDm-Itp5cTlqGeqQgDT_7hw6x6MIGFXGXddIw964w"
 		}
 	]
 }
