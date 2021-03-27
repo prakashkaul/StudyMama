@@ -34,7 +34,7 @@ MySQL Driver
 MySQL JDBC and R2DBC driver.
 ```
 
-MySQL Setup
+MySQL
 -
 MySQL is an open-source relational database management system.
 
@@ -59,7 +59,7 @@ ElasticSearch
 Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents.
 https://www.elastic.co/downloads/elasticsearch
 
-1. Run elastisearch.bat in bin folder.
+1. Run "D:\Program Files\elasticsearch-7.12.0\bin\elasticsearch.bat"
 2. http://localhost:9200/
 
 Kibana
@@ -69,12 +69,51 @@ https://www.elastic.co/downloads/kibana
 
 1. Go to kibana.yml in the config folder.
 2. Uncomment line -- elasticsearch.url: "http://localhost:9200"
-3. Run kibana.bat in the bin folder.
-4. http://localhost:5601/
+3. Run "D:\Program Files\kibana-7.12.0-windows-x86_64\bin\kibana.bat"
+4. http://localhost:5601/app/kibana
 
 Logstash
 -
 Logstash is a free and open server-side data processing pipeline that ingests data from a multitude of sources, transforms it, and then sends it to your favorite "stash."
 https://www.elastic.co/downloads/logstash
 
+1. Create logstash.conf in the bin folder.
+2.
 
+```
+input {
+  file {
+    type => "java"
+    path => "D:/Eclipse Projects/StudyMama/logs/studymama.log"
+    codec => multiline {
+      pattern => "^%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME}.*"
+      negate => "true"
+      what => "previous"
+    }
+  }
+}
+ 
+filter {
+  #If log line contains tab character followed by 'at' then we will tag that entry as stacktrace
+  if [message] =~ "\tat" {
+    grok {
+      match => ["message", "^(\tat)"]
+      add_tag => ["stacktrace"]
+    }
+  }
+ 
+}
+ 
+output {
+   
+  stdout {
+    codec => rubydebug
+  }
+ 
+  # Sending properly parsed log events to elasticsearch
+  elasticsearch {
+    hosts => ["localhost:9200"]
+  }
+}
+```
+3. Run "D:\Program Files\logstash-7.12.0\bin\logstash.bat" -f "D:\Program Files\logstash-7.12.0\bin\logstash.conf"

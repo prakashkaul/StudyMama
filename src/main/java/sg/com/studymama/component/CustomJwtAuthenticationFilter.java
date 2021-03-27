@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,11 +20,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import sg.com.studymama.controller.AuthenticationController;
 import sg.com.studymama.service.JwtUtil;
 
 @Component
 public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 
+	private static final Logger LOG = LoggerFactory.getLogger(CustomJwtAuthenticationFilter.class);
+	
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 
@@ -46,8 +51,10 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			}
 		} catch (ExpiredJwtException ex) {
+			LOG.error("ExpiredJwtException", ex);
 			String isRefreshToken = request.getHeader("isRefreshToken");
 			String requestURL = request.getRequestURL().toString();
+			LOG.error("ExpiredJwtException isRefreshToken:" + isRefreshToken + " requestURL " + requestURL, ex);
 			// allow for Refresh Token creation if following conditions are true.
 			if (isRefreshToken != null && isRefreshToken.equals("true") && requestURL.contains("refreshtoken")) {
 				allowForRefreshToken(ex, request);
@@ -55,6 +62,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 				request.setAttribute("exception", ex);
 		} catch (BadCredentialsException ex) {
 			request.setAttribute("exception", ex);
+			LOG.error("BadCredentialsException", ex);
 			throw ex;
 		}
 		chain.doFilter(request, response);
