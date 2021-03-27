@@ -6,6 +6,9 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +30,8 @@ import sg.com.studymama.service.JwtUtil;
 
 @RestController
 public class AuthenticationController {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -41,11 +46,14 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
 		try {
+			LOG.info("New authentication request: " + authenticationRequest.toString());
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		} catch (DisabledException e) {
+			LOG.error("DisabledException", e);
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
+			LOG.error("BadCredentialsException", e);
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -57,6 +65,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		LOG.info("New registration: " + user.toString());
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 	
@@ -67,6 +76,7 @@ public class AuthenticationController {
 
 		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
 		String token = jwtTokenUtil.doGenerateRefreshToken(expectedMap, expectedMap.get("sub").toString());
+		LOG.info("Token refresh request: " + token);
 		return ResponseEntity.ok(new AuthenticationResponse(token));
 	}
 
