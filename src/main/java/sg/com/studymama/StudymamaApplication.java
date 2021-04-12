@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StudymamaApplication {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(StudymamaApplication.class);
-	
 	public static void main(String[] args) {
 		SpringApplication.run(StudymamaApplication.class, args);
 		LOG.info("Study Mama Application Started");

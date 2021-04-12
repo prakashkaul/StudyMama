@@ -44,8 +44,12 @@ MySQL is an open-source relational database management system.
 
 **Schema**
 ```
-CREATE SCHEMA `new_schema` ;
+CREATE SCHEMA `studymama` ;
 ```
+**User**
+CREATE USER 'studymama'@'localhost' IDENTIFIED BY 'studymama@123';
+GRANT ALL PRIVILEGES ON studymama.* TO 'studymama'@'localhost';
+FLUSH PRIVILEGES;
 
 **User Table**
 ```
