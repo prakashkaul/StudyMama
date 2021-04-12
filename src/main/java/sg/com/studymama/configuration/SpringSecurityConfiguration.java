@@ -50,7 +50,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
 				.antMatchers("/hellouser").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/authenticate", "/register").permitAll().anyRequest().authenticated().and()
+				.antMatchers("/authenticate", "/register", "/search"
+						,"/v2/api-docs", //for swagger stuff
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll().anyRequest().authenticated().and()
 				.exceptionHandling().and().httpBasic().authenticationEntryPoint(unauthorizedHandler).and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
