@@ -36,6 +36,9 @@ Persist data in SQL stores with Java Persistence API using Spring Data and Hiber
 
 MySQL Driver
 MySQL JDBC and R2DBC driver.
+
+Swagger
+Swagger is an Interface Description Language for describing RESTful APIs expressed using JSON. 
 ```
 
 MySQL
