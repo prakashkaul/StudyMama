@@ -14,18 +14,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import sg.com.studymama.StudymamaApplication;
+import sg.com.studymama.exceptions.UserAlreadyExistAuthenticationException;
 import sg.com.studymama.model.DAOUser;
+import sg.com.studymama.model.DAOUserProfile;
 import sg.com.studymama.model.UserDTO;
+import sg.com.studymama.repository.UserProfileRepository;
 import sg.com.studymama.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
-	
+
 	@Autowired
 	private UserRepository userDao;
+
+	@Autowired
+	private UserProfileRepository userProfileDao;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -41,13 +46,29 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		throw new UsernameNotFoundException("User not found with username: " + username);
 	}
-	
-	public DAOUser save(UserDTO user) {
-		DAOUser newUser = new DAOUser();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setRole(user.getRole());
-		return userDao.save(newUser);
+
+	public DAOUser save(UserDTO user) throws UserAlreadyExistAuthenticationException {
+		if (userDao.findByUsername(user.getUsername()) == null) {
+			DAOUser newUser = new DAOUser();
+			newUser.setUsername(user.getUsername());
+			newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+			newUser.setRole(user.getRole());
+			DAOUserProfile newProfile = new DAOUserProfile();
+			userProfileDao.save(newProfile);
+			newUser.setUser_profile_id(newProfile.getId());
+			LOG.info("save " + newUser.toString());
+			return userDao.save(newUser);
+		}
+		throw new UserAlreadyExistAuthenticationException("username already exists: " + user.getUsername());
+	}
+
+	public DAOUser find(String username) throws UsernameNotFoundException {
+		DAOUser user = userDao.findByUsername(username);
+		if (user != null) {
+			LOG.info("find " + user.toString());
+			return user;
+		}
+		throw new UsernameNotFoundException("User not found with username: " + username);
 	}
 
 }
