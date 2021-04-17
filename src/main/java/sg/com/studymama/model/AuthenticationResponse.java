@@ -19,4 +19,9 @@ public class AuthenticationResponse {
 		this.token = token;
 	}
 
+	@Override
+	public String toString() {
+		return "AuthenticationResponse [token=" + token + "]";
+	}
+
 }
