@@ -53,7 +53,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE2NjgzMzY3LCJpYXQiOjE2MTY2ODMzNjd9.06WpClORAixs2pOnKWzVY5Hocszdi_Ac77vwZymPxtzcMZ_rx4ttctZwXR77tEbXesV69GOcyAEa7mQq3gOs5A",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaXNVc2VyIjp0cnVlLCJleHAiOjE2MTg0MDIwMzcsImlhdCI6MTYxODM5ODQzN30.74tjWJtFiiFopGCAa1D_o4O-TpHCCiZEJ8UjOBSH6e0UHcmMN5G4cT7spsGd7xfzFvlKuoWYr0DP2s3VhDSGBQ",
 							"type": "string"
 						}
 					]
@@ -197,11 +197,49 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "updateProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaXNVc2VyIjp0cnVlLCJleHAiOjE2MTg0MDIwMzcsImlhdCI6MTYxODM5ODQzN30.74tjWJtFiiFopGCAa1D_o4O-TpHCCiZEJ8UjOBSH6e0UHcmMN5G4cT7spsGd7xfzFvlKuoWYr0DP2s3VhDSGBQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"user\",\r\n    \"firstName\":\"firstName\",\r\n    \"lastName\":\"lastName\",\r\n    \"contact\":\"contact\",\r\n    \"address\":\"address\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateProfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "7cd90590-cc6b-4cfc-9e1a-74182c4654b1",
+			"id": "c8c32423-ba83-4e4e-b199-8f44e1d009c4",
 			"key": "Bearer Token",
 			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE2NjgzNjQ2LCJpYXQiOjE2MTY2ODM2NDZ9.A0QuLIScuMHBT3Gpe0yGygYpMR2XCxRM4JOOZJnBVq_WbTDm-Itp5cTlqGeqQgDT_7hw6x6MIGFXGXddIw964w"
 		}

@@ -10,10 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
+//import org.hibernate.envers.Audited;
 
 @Entity
-@Audited
+//@Audited
 @Table(name = "post")
 public class PostEntity implements Serializable {
 	
