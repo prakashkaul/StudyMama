@@ -1,3 +1,4 @@
+docker image prune
 docker container prune
 y
 docker image rm studymama:latest
