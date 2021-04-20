@@ -1,7 +1,5 @@
 package sg.com.studymama.model;
 
-import java.sql.Blob;
-
 public class ProfilePictureDTO {
 
 	private String username;
