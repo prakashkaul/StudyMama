@@ -4,6 +4,7 @@ package sg.com.studymama.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import sg.com.studymama.model.Post;
 import sg.com.studymama.repository.PostElasticSearchRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
 
   @Autowired
   private  ElasticsearchOperations operations;
+
 
   public Post createPost(Post Post) {
     return postRepository.save(Post);
@@ -88,7 +91,7 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
   }
 
 
-  public List<SearchHit<Post>> searchWithin(GeoPoint geoPoint, Double distance, String unit) {
+  public List<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit) {
 
     Query query = new CriteriaQuery(
             new Criteria("location").within(geoPoint, distance.toString() + unit)
@@ -97,7 +100,7 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
     Sort sort = Sort.by(new GeoDistanceOrder("location", geoPoint).withUnit(unit));
     query.addSort(sort);
 
-    return operations.search(query, Post.class).getSearchHits();
+    return toResultData(operations.search(query, Post.class).getSearchHits());
   }
 
   @Override

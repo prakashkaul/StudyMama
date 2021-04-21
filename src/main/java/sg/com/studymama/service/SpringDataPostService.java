@@ -30,7 +30,5 @@ public interface SpringDataPostService {
 
   List<Post> searchPostsByByKeywordInTitleDescriptionCategory(String keyword);
 
-
-
-    public List<SearchHit<Post>> searchWithin(GeoPoint geoPoint, Double distance, String unit);
+  public List<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit);
 }

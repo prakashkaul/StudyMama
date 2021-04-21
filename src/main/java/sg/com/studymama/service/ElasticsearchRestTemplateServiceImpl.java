@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
@@ -16,6 +18,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 import sg.com.studymama.model.Post;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ElasticsearchRestTemplateServiceImpl implements ElasticsearchRestTemplateService {
 
+  @Autowired
   private  ElasticsearchRestTemplate elasticsearchRestTemplate;
+  @PostConstruct
+  public void init() {
+    IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(Post.class);
+    indexOperations.putMapping(indexOperations.createMapping());
+    indexOperations.refresh();
+  }
 
 
   public Post getPostById(String id) {

@@ -2,9 +2,11 @@ package sg.com.studymama.repository;
 
 
 import org.springframework.data.elasticsearch.annotations.Query;
+import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import sg.com.studymama.model.Post;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 public interface PostElasticSearchRepository extends ElasticsearchRepository<Post, String> {
