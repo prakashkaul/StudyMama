@@ -30,8 +30,8 @@ services:
       SPRING_ELASTICSEARCH_REST_PASSWORD:
       SPRING_ELASTICSEARCH_REST_USERNAME:
     depends_on:
+      - db
       - elasticsearch
-      - mysqldb
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
