@@ -1,6 +1,9 @@
 package sg.com.studymama.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import sg.com.studymama.model.Post;
 
@@ -15,20 +18,20 @@ public interface SpringDataPostService {
 
   void deletePost(String id);
 
-  Iterable<Post> insertBulkPost(List<Post> Posts);
+  Iterable<Post> insertBulkPost(Page<Post> Posts);
 
-  List<Post> getPostsByCategory(String category);
+  Page<Post> getPostsByCategory(String category,Pageable pageable);
 
-  List<Post> getAllPost();
+  Page<Post> getAllPost(Pageable pageable);
 
-  List<Post> searchPostBySimilarTitle(String title);
-  List<Post> searchPostByName(String title);
+  Page<Post> searchPostBySimilarTitle(String title,Pageable pageable);
+  SearchPage<Post> searchPostByName(String title, Pageable pageable);
 
-  List<Post> searchPostBySimilarCategory(String category);
+  Page<Post> searchPostBySimilarCategory(String category,Pageable pageable);
 
-  List<Post> searchPostByCategory(String category);
+  Page<Post> searchPostByCategory(String category,Pageable pageable);
 
-  List<Post> searchPostsByByKeywordInTitleDescriptionCategory(String keyword);
+  Page<Post> searchPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable);
 
-  public List<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit);
+  SearchPage<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit, Pageable pageable);
 }
