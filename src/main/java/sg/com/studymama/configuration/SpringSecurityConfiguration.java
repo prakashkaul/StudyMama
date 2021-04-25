@@ -54,7 +54,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
 				.antMatchers("/hellouser", "/updateProfile", "/profilePicture").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/authenticate", "/register", "/search", "/fakecategorysearch",
+				.antMatchers("/authenticate", "/register", "/search", "/fakecategorysearch", "/greeting",
 						"/postService/*",
 						"/v2/api-docs", //for swagger stuff
                         "/configuration/ui",
