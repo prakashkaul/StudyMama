@@ -26,8 +26,16 @@
 #COPY pom.xml /usr/src/app  
 #RUN mvn -f /usr/src/app/pom.xml clean install -U -DskipTests
 
+#FROM gcr.io/distroless/java  
+#ARG JAR_FILE=target/*.jar
+#COPY ${JAR_FILE} app.jar
+#EXPOSE 8080  
+#ENTRYPOINT ["java","-jar","app.jar"]
+
 FROM gcr.io/distroless/java  
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-EXPOSE 8080  
-ENTRYPOINT ["java","-jar","app.jar"]
+VOLUME /tmp
+ARG DEPENDENCY=target/dependency
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java","-cp","app:app/lib/*","sg.com.studymama"]
