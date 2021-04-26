@@ -69,9 +69,6 @@
             ],
             "essential": true,
             "image": "docker.elastic.co/kibana/kibana:7.6.0",
-            "links": [
-                "elasticsearch"
-            ],
             "name": "kibana",
             "portMappings": [
                 {
@@ -88,9 +85,6 @@
             ],
             "essential": true,
             "image": "docker.elastic.co/logstash/logstash:7.6.0",
-            "links": [
-                "elasticsearch"
-            ],
             "name": "logstash",
             "portMappings": [
                 {
@@ -143,6 +137,10 @@
           "awslogs-group": "/ecs/studymama-task-definition",
           "awslogs-region": "ap-southeast-1",
           "awslogs-stream-prefix": "ecs"
+        }
+        "logDriver": "syslog",
+        "options": {
+          "syslog-address": "udp://:4560"
         }
       },
       "entryPoint": [
