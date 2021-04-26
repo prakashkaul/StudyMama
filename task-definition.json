@@ -3,131 +3,175 @@
   "executionRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-            "environment": [
-                {
-                    "name": "MYSQL_DATABASE",
-                    "value": "studymama"
-                },
-                {
-                    "name": "MYSQL_USER",
-                    "value": "studymama"
-                },
-                {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "studymama@123"
-                },
-                {
-                    "name": "MYSQL_ROOT_PASSWORD",
-                    "value": "root"
-                }
-            ],
-            "essential": true,
-            "image": "mysql:8",
-            "name": "db",
-            "portMappings": [
-                {
-                    "containerPort": 3306,
-                    "hostPort": 3306
-                }
-            ]
+      "environment": [
+        {
+          "name": "MYSQL_DATABASE",
+          "value": "studymama"
         },
         {
-            "environment": [
-                {
-                    "name": "discovery.type",
-                    "value": "single-node"
-                }
-            ],
-            "essential": true,
-            "image": "docker.elastic.co/elasticsearch/elasticsearch:7.6.0",
-            "name": "elasticsearch",
-            "portMappings": [
-                {
-                    "containerPort": 9200,
-                    "hostPort": 9200
-                },
-                {
-                    "containerPort": 9300,
-                    "hostPort": 9300
-                }
-            ]
+          "name": "MYSQL_USER",
+          "value": "studymama"
         },
         {
-            "environment": [
-                {
-                    "name": "SERVER_NAME",
-                    "value": "kibana"
-                },
-                {
-                    "name": "ELASTICSEARCH_URL",
-                    "value": "http://elasticsearch:9200/"
-                },
-                {
-                    "name": "ES_JAVA_OPTS",
-                    "value": "-Xms1g -Xmx2g"
-                }
-            ],
-            "essential": true,
-            "image": "docker.elastic.co/kibana/kibana:7.6.0",
-            "name": "kibana",
-            "portMappings": [
-                {
-                    "containerPort": 5601,
-                    "hostPort": 5601
-                }
-            ]
+          "name": "MYSQL_PASSWORD",
+          "value": "studymama@123"
         },
         {
-            "command": [
-                "logstash",
-                "-f",
-                "./conf/logstash.conf"
-            ],
-            "essential": true,
-            "image": "docker.elastic.co/logstash/logstash:7.6.0",
-            "name": "logstash",
-            "portMappings": [
-                {
-                    "containerPort": 5044,
-                    "hostPort": 5044
-                }
-            ]
-        },
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "root"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 256,
+      "memoryReservation": 512,
+      "essential": true,
+      "image": "mysql:8",
+      "name": "db",
+      "portMappings": [
+        {
+          "containerPort": 3306,
+          "hostPort": 3306
+        }
+      ]
+    },
     {
       "environment": [
-                {
-                    "name": "SPRING_DATASOURCE_URL",
-                    "value": "jdbc:mysql://mysqldb:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
-                },
-                {
-                    "name": "SPRING_DATASOURCE_USERNAME",
-                    "value": "studymama"
-                },
-                {
-                    "name": "SPRING_DATASOURCE_PASSWORD",
-                    "value": "studymama@123"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_URIS",
-                    "value": "elasticsearch:9200"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
-                    "value": "1s"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
-                    "value": "1m"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
-                    "value": "None"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
-                    "value": "None"
-                }
-            ],
+        {
+          "name": "discovery.type",
+          "value": "single-node"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 256,
+      "memoryReservation": 512,
+      "essential": true,
+      "image": "docker.elastic.co/elasticsearch/elasticsearch:7.6.0",
+      "name": "elasticsearch",
+      "portMappings": [
+        {
+          "containerPort": 9200,
+          "hostPort": 9200
+        },
+        {
+          "containerPort": 9300,
+          "hostPort": 9300
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "SERVER_NAME",
+          "value": "kibana"
+        },
+        {
+          "name": "ELASTICSEARCH_URL",
+          "value": "http://elasticsearch:9200/"
+        },
+        {
+          "name": "ES_JAVA_OPTS",
+          "value": "-Xms1g -Xmx2g"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 256,
+      "memoryReservation": 512,
+      "essential": true,
+      "image": "docker.elastic.co/kibana/kibana:7.6.0",
+      "name": "kibana",
+      "portMappings": [
+        {
+          "containerPort": 5601,
+          "hostPort": 5601
+        }
+      ]
+    },
+    {
+      "command": [
+        "logstash",
+        "-f",
+        "./conf/logstash.conf"
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 256,
+      "memoryReservation": 512,
+      "essential": true,
+      "image": "docker.elastic.co/logstash/logstash:7.6.0",
+      "name": "logstash",
+      "portMappings": [
+        {
+          "containerPort": 5044,
+          "hostPort": 5044
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:mysql://mysqldb:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
+        },
+        {
+          "name": "SPRING_DATASOURCE_USERNAME",
+          "value": "studymama"
+        },
+        {
+          "name": "SPRING_DATASOURCE_PASSWORD",
+          "value": "studymama@123"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_REST_URIS",
+          "value": "elasticsearch:9200"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
+          "value": "1s"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
+          "value": "1m"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
+          "value": "None"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
+          "value": "None"
+        }
+      ],
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": {
@@ -139,6 +183,8 @@
           "awslogs-stream-prefix": "ecs"
         }
       },
+      "cpu": 256,
+      "memoryReservation": 512,
       "entryPoint": [
         "java",
         "-jar",
@@ -152,7 +198,6 @@
         }
       ],
       "linuxParameters": null,
-      "cpu": 256,
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
@@ -161,7 +206,6 @@
       "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": null,
       "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:latest",
@@ -186,6 +230,8 @@
   ],
   "placementConstraints": [],
   "memory": "512",
+  "networkMode": "awsvpc",
+  "cpu": "256",
   "taskRoleArn": null,
   "compatibilities": [
     "EC2",
@@ -247,8 +293,6 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "networkMode": "awsvpc",
-  "cpu": "256",
   "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
