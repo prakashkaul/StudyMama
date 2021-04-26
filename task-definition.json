@@ -3,63 +3,6 @@
   "executionRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": [
-        "java",
-        "-jar",
-        "/usr/local/lib/app.jar"
-      ],
-      "portMappings": [
-        {
-          "hostPort": 8080,
-          "protocol": "tcp",
-          "containerPort": 8080
-        }
-      ],
-      "linuxParameters": null,
-      "cpu": 256,
-      "environment": [],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": 512,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:latest",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": [],
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "studymama-container"
-    },
-    {
             "environment": [
                 {
                     "name": "MYSQL_DATABASE",
@@ -155,8 +98,8 @@
                 }
             ]
         },
-        {
-            "environment": [
+    {
+      "environment": [
                 {
                     "name": "SPRING_DATASOURCE_URL",
                     "value": "jdbc:mysql://mysqldb:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
@@ -189,8 +132,62 @@
                     "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
                     "value": "None"
                 }
-            ]
+            ],
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
         }
+      },
+      "entryPoint": [
+        "java",
+        "-jar",
+        "/usr/local/lib/app.jar"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        }
+      ],
+      "linuxParameters": null,
+      "cpu": 256,
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": 512,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:latest",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": [],
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "studymama-container"
+    }
   ],
   "placementConstraints": [],
   "memory": "512",
