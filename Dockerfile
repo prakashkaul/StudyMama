@@ -5,7 +5,7 @@
 #WORKDIR $APP_HOME
 #ENTRYPOINT ["sh", "-c"]
 #CMD ["exec java -jar $APP_FILE"]
-
+#TEST
 #FROM    maven:3.6.0-jdk-8 AS build
 #COPY src /home/app/src
 #COPY pom.xml /home/app
