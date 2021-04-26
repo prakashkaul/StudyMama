@@ -94,6 +94,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: studymama-container-service
+        service: studymama-service
         cluster: studymama-cluster
         wait-for-service-stability: true
