@@ -1,10 +1,10 @@
-#FROM openjdk:8-jdk-alpine
-#ENV APP_FILE studymama-0.0.1-SNAPSHOT.jar
-#ENV APP_HOME /usr/app
-#COPY target/$APP_FILE $APP_HOME/
-#WORKDIR $APP_HOME
-#ENTRYPOINT ["sh", "-c"]
-#CMD ["exec java -jar $APP_FILE"]
+FROM openjdk:8-jdk-alpine
+ENV APP_FILE studymama-0.0.1-SNAPSHOT.jar
+ENV APP_HOME /usr/app
+COPY target/$APP_FILE $APP_HOME/
+WORKDIR $APP_HOME
+ENTRYPOINT ["sh", "-c"]
+CMD ["exec java -jar $APP_FILE"]
 
 #FROM    maven:3.6.0-jdk-8 AS build
 #COPY src /home/app/src
@@ -31,11 +31,3 @@
 #COPY ${JAR_FILE} app.jar
 #EXPOSE 8080  
 #ENTRYPOINT ["java","-jar","app.jar"]
-
-FROM gcr.io/distroless/java  
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","sg.com.studymama"]
