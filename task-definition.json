@@ -131,9 +131,12 @@
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": {
-        "logDriver": "syslog",
+        "logDriver": "awslogs",
+        "secretOptions": null,
         "options": {
-          "syslog-address": "udp://:4560"
+          "awslogs-group": "/ecs/studymama-task-definition",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
         }
       },
       "entryPoint": [
