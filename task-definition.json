@@ -311,12 +311,16 @@
           "value": "studymama"
         },
         {
-          "name": "MYSQL_ROOT_PASSWORD",
-          "value": "root"
+          "name": "MYSQL_USER",
+          "value": "studymama"
         },
         {
-          "name": "MYSQL_USER",
+          "name": "MYSQL_PASSWORD",
           "value": "studymama@123"
+        },
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "root"
         }
       ],
       "resourceRequirements": null,
