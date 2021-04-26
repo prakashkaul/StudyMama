@@ -26,7 +26,12 @@
 #COPY pom.xml /usr/src/app  
 #RUN mvn -f /usr/src/app/pom.xml clean install -U -DskipTests
 
-FROM gcr.io/distroless/java  
-COPY target/*.jar app.jar
-EXPOSE 8080  
-ENTRYPOINT ["java","-jar","app.jar"]
+#FROM gcr.io/distroless/java  
+#COPY target/*.jar app.jar
+#EXPOSE 8080  
+#ENTRYPOINT ["java","-jar","app.jar"]
+
+FROM openjdk:8-jdk-alpine
+MAINTAINER baeldung.com
+COPY target/studymama-0.0.1-SNAPSHOT.jar studymama-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/studymama-0.0.1-SNAPSHOT.jar"]
