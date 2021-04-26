@@ -87,6 +87,7 @@
                 "./conf/logstash.conf"
             ],
             "essential": true,
+            "image": "docker.elastic.co/logstash/logstash:7.6.0",
             "links": [
                 "elasticsearch"
             ],
