@@ -15,8 +15,9 @@
         }
       },
       "entryPoint": [
-        "sh",
-        "-c"
+        "java",
+        "-jar",
+        "/usr/local/lib/app.jar"
       ],
       "portMappings": [
         {
