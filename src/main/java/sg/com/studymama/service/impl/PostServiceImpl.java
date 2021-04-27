@@ -13,9 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import sg.com.studymama.DTO.PostDTO;
+import sg.com.studymama.DTO.PostsDTO;
 import sg.com.studymama.Entity.CommentEntity;
-import sg.com.studymama.Entity.PostEntity;
+import sg.com.studymama.Entity.PostsEntity;
 import sg.com.studymama.Entity.RateEntity;
 import sg.com.studymama.model.PaginationParamDTO;
 import sg.com.studymama.model.PaginationResultDTO;
@@ -37,12 +37,12 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostDTO> getAllPost() {
+	public List<PostsDTO> getAllPost() {
 		// TODO Auto-generated method stub
-		List<PostDTO> dtos = new ArrayList<PostDTO>();
-		List<PostEntity> entity = postRepository.findAll();
+		List<PostsDTO> dtos = new ArrayList<PostsDTO>();
+		List<PostsEntity> entity = postRepository.findAll();
 		if(entity != null && entity.size()>0) {
-			for(PostEntity post : entity) {
+			for(PostsEntity post : entity) {
 				dtos.add(convertToDTO(post));
 			}
 		}
@@ -50,9 +50,9 @@ public class PostServiceImpl implements PostService{
 		return dtos;
 	}
 
-	private PostDTO convertToDTO(PostEntity post) {
+	private PostsDTO convertToDTO(PostsEntity post) {
 		// TODO Auto-generated method stub
-		PostDTO dto = new PostDTO();
+		PostsDTO dto = new PostsDTO();
 		
 		dto.setAccountId(post.getAccountId());
 		dto.setPostId(post.getPostId());
@@ -93,10 +93,10 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostDTO findById(Integer postId) {
+	public PostsDTO findById(Integer postId) {
 		// TODO Auto-generated method stub
-		PostDTO dto = new PostDTO();
-		PostEntity entity =postRepository.findByPostId(postId);
+		PostsDTO dto = new PostsDTO();
+		PostsEntity entity =postRepository.findByPostId(postId);
 		if(entity!=null) {
 			dto = convertToDTO(entity);
 		}
@@ -105,9 +105,9 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostEntity save(PostDTO dto) {
+	public PostsEntity save(PostsDTO dto) {
 		// TODO Auto-generated method stub
-		PostEntity entity = convertToEntity(dto);
+		PostsEntity entity = convertToEntity(dto);
 		if(entity.getPostId()==null) {
 			//entity.setLastUpdatedDate(Optional.ofNullable(Timestamp.valueOf("2020-01-02 00:00:00")).orElse(null));
 			entity.setLastUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
@@ -119,9 +119,9 @@ public class PostServiceImpl implements PostService{
 		return postRepository.save(entity);
 	}
 
-	private PostEntity convertToEntity(PostDTO dto) {
+	private PostsEntity convertToEntity(PostsDTO dto) {
 		// TODO Auto-generated method stub
-		PostEntity entity = new PostEntity();
+		PostsEntity entity = new PostsEntity();
 		//boolean bCreate = true;
 		
 //		if(dto.getPostId() != null && dto.getPostId()>0) {
@@ -155,14 +155,14 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<PostDTO> getPosts(Integer accountId) {
+	public List<PostsDTO> getPosts(Integer accountId) {
 		// TODO Auto-generated method stub
-		List<PostEntity> postDTOList = new ArrayList<>();
+		List<PostsEntity> postDTOList = new ArrayList<>();
 		postDTOList = postRepository.findByAccountId(accountId);
 		
-		List<PostDTO> postDTO = new ArrayList<>();
+		List<PostsDTO> postDTO = new ArrayList<>();
 		if(postDTOList != null && postDTOList.size() > 0) {
-			for (PostEntity post : postDTOList) {
+			for (PostsEntity post : postDTOList) {
 				postDTO.add(convertToDTO(post));
 			}
 		}

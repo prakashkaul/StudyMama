@@ -21,7 +21,7 @@ public class UserProfileService {
 	
 	public DAOUserProfile update(UserProfileDTO userProfile, long user_profile_id) {
 		Optional<DAOUserProfile> tempProfile = userProfileDao.findById(user_profile_id);
-		DAOUserProfile updateProfile = tempProfile.get();
+		DAOUserProfile updateProfile = tempProfile.orElse(null);
 		if(updateProfile!=null) {
 			updateProfile.setAddress(userProfile.getAddress());
 			updateProfile.setContact(userProfile.getContact());
