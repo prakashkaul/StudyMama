@@ -7,8 +7,10 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+
 @Document(indexName = "post")
-public class Post{
+public class Post implements Serializable {
 
     @Id
     private String id;

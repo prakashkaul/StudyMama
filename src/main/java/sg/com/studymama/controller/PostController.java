@@ -1,98 +1,110 @@
 package sg.com.studymama.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import jdk.internal.org.jline.utils.Log;
-import sg.com.studymama.DTO.PostDTO;
-import sg.com.studymama.DTO.PostsDTO;
-import sg.com.studymama.Entity.PostEntity;
-import sg.com.studymama.model.PaginationParamDTO;
-import sg.com.studymama.model.PaginationResultDTO;
-import sg.com.studymama.repository.PostRepository;
-import sg.com.studymama.service.PostService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sg.com.studymama.model.Post;
+import sg.com.studymama.service.ElasticsearchRestTemplateServiceImpl;
+import sg.com.studymama.service.SpringDataPostService;
 
 @RestController
+@RequestMapping("/postService")
 public class PostController {
-//	
-//	private static final Logger LOG = LoggerFactory.getLogger(PostController.class);
-//	
-//	@Autowired
-//	private PostService postService;
-//	
-//	@GetMapping("post")
-//	public String postList() {
-//		return "/PostList";//overall post page include some basic info
-//	}
-//    
-//	@GetMapping("/postData")
-//	@ResponseBody
-//	public List<PostDTO> getPostData(@RequestParam(value = "accountId", required = false) Integer accountId) {
-//
-////		List<PostsDTO> postDTOList = new ArrayList<PostDTO>();
-//		postDTOList = postService.getPosts(accountId);
-//
-//		return postDTOList;
-//	}
-//    
-//	@GetMapping("/post/{postId}")
-//	public String postData(@PathVariable("postId")Integer id, Model model) {
-//		
-//		PostDTO postDTO = null;
-//		if(id != null && id>0 ) {
-//			postDTO = postService.findById(id);
-//		} else {
-//			postDTO = new PostDTO();
-//		}
-//		
-//		model.addAttribute("DTO", postDTO);
-//		return "post/postForm";
-//	}
-//
-//	@PostMapping("/postFormSubmit")
-//	public String postFormSubmit(@RequestBody PostDTO postDTO, BindingResult bindingResult,
-//			RedirectAttributes redirectAttributes, Model model) {
-//		
-//		
-//		try {
-//			postService.save(postDTO);
-//			redirectAttributes.addAttribute("notificationType", "success");
-//			redirectAttributes.addAttribute("notificationMessage", "Success");
-//			LOG.info(postDTO.toString());
-//			return "redirect:/post";
-//		} catch (Exception e) {
-//			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
-//			redirectAttributes.addAttribute("notificationType", "error");
-//			redirectAttributes.addAttribute("notificationMessage", e.getMessage());
-//			return "redirect:/post";
-//		}
-//
-//	}
-//	
-//	@RequestMapping(value = "/postDelete",method= RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
-//	public String postDelete(@RequestParam(name="postId")Integer postId) { 
-//		LOG.info("pOST ID IS " + postId);
-//		
-//		postService.deletePost(postId);
-//		
-//		return "redirect:/post";
-//	}
+    private static final Logger LOG = LoggerFactory.getLogger(PostController.class);
+
+
+    @Autowired
+    private  SpringDataPostService springDataPostService;
+
+    @Operation(summary = "Create a post")
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    public ResponseEntity<?> post(@RequestBody Post post) throws Exception {
+        LOG.info("Adding Posts to Elasticsearch " + post.toString());
+
+        return ResponseEntity.ok(springDataPostService.createPost(post));
+    }
+
+    @Operation(summary = "delete a post by id")
+    @RequestMapping(value = "/post", method = RequestMethod.DELETE)
+    public ResponseEntity<?> post( @Parameter(description = "the id of post to be deleted ") @RequestParam String id) throws Exception {
+        LOG.info("Delete Post id "+id);
+        springDataPostService.deletePost(id);
+        return ResponseEntity.ok("Delete Successfully");
+    }
+
+    @Operation(summary = "Retrieving  all posts")
+    @RequestMapping(value = "/allPost", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllPosts(@RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        LOG.info("retrieving all Post");
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.getAllPost(paging));
+    }
+
+    @Operation(summary = "Retrieving posts base on title")
+    @RequestMapping(value = "/searchPostBySimilarTitle", method = RequestMethod.GET)
+    public ResponseEntity<?> searchPostsBySimilarTitle(
+            @Parameter(description = "The keyword to search in title")
+            @RequestParam String title,@RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        LOG.info("Retrieving posts base on title");
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.searchPostByName(title,paging));
+    }
+
+    @Operation(summary = "Retrieving posts base on category")
+    @RequestMapping(value = "/searchPostByCategory", method = RequestMethod.GET)
+    public ResponseEntity<?> searchPostsByCategory(
+            @Parameter(description = "The category name")
+            @RequestParam String category,@RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        LOG.info("Retrieving posts base on category");
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.searchPostByCategory(category,paging));
+    }
+
+    @Operation(summary = "Retrieving posts base  on keyword in category")
+    @RequestMapping(value = "/searchPostBySimilarCategory", method = RequestMethod.GET)
+    public ResponseEntity<?> searchPostsByKeywordInCategory(
+            @Parameter(description = "The keyword to search in Category ")
+            @RequestParam String keyword,@RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        LOG.info("Retrieving posts base  on keyword in category");
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.searchPostBySimilarCategory(keyword,paging));
+    }
+
+
+    @Operation(summary = "Retrieving posts base on keyword in the Title,Descriptions and Category")
+    @RequestMapping(value = "/searchPostByKeywordInTitleDescCategory", method = RequestMethod.GET)
+    public ResponseEntity<?> searchPostsByByKeywordInTitleDescriptionCategory(
+            @Parameter(description = "The keyword to search in Title,Description and Category ")
+            @RequestParam String keyword,@RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        LOG.info("Retrieving posts base on keyword in the Title,Descriptions and Category");
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.searchPostsByByKeywordInTitleDescriptionCategory(keyword,paging));
+    }
+
+
+    @Operation(summary = "Retrieving  all posts around certain distance")
+    @RequestMapping(value = "/postNearMe", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllPostsNearMe(@Parameter(description = "The value of distance you want to search ") @RequestParam Double distance,
+                                               @Parameter(description = "latitude ") @RequestParam Double lat,
+                                               @Parameter(description = "longitude ") @RequestParam Double lon,
+                                               @Parameter(description = "km or m ")  @RequestParam String unit,
+                                               @RequestParam int currentPage,@RequestParam int pageSize) throws Exception {
+        Pageable paging = PageRequest.of(currentPage, pageSize);
+
+        return ResponseEntity.ok(springDataPostService.searchWithin(new GeoPoint(lat,lon),distance,unit,paging));
+    }
 
 }
