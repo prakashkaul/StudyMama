@@ -15,10 +15,13 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
+import sg.com.studymama.Entity.CommentEntity;
+import sg.com.studymama.Entity.RateEntity;
+
 @Entity
 @Audited
 @Table(name = "post")
-public class PostEntity implements Serializable {
+public class PostsEntity implements Serializable {
 	
 	private static final long serialVersionUID = -2379013249132428687L;
 
@@ -71,7 +74,7 @@ public class PostEntity implements Serializable {
     private Set<RateEntity> rateEntity;
     
     @OneToMany
-    @JoinColumn(name = "POST_ID",referencedColumnName="POST_ID",insertable=false, updatable=false)
+    @JoinColumn(name = "POST_ID",insertable=false, updatable=false)
     private Set<CommentEntity> commentEntity;
     
 

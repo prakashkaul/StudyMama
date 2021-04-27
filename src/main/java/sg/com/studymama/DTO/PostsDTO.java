@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class PostDTO implements Serializable {
+public class PostsDTO implements Serializable {
 	
 	private static final long serialVersionUID = 5017807602995665018L;
 	
@@ -23,12 +23,12 @@ public class PostDTO implements Serializable {
 	private BigDecimal score;
 	private List<String> comments;
 	
-	public PostDTO() {
+	public PostsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
+	public PostsDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
 			String website, String status, Double gpsX, Double gpsY, String contact, String images) {
 		super();
 		this.postId = postId;
@@ -45,7 +45,7 @@ public class PostDTO implements Serializable {
 		this.images = images;
 	}
 
-	public PostDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
+	public PostsDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
 			String website, String status, Double gpsX, Double gpsY, String contact, String images, BigDecimal score,
 			List<String> comments) {
 		super();
@@ -176,5 +176,4 @@ public class PostDTO implements Serializable {
 	public void setComments(List<String> comments) {
 		this.comments = comments;
 	}
-
 }

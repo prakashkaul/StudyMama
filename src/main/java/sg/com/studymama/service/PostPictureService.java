@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sg.com.studymama.Entity.PostEntity;
+import sg.com.studymama.Entity.PostsEntity;
 import sg.com.studymama.model.DAOPostPicture;
 import sg.com.studymama.model.PostPictureDTO;
 import sg.com.studymama.repository.PostPictureRepository;
@@ -26,8 +26,8 @@ public class PostPictureService {
 	PostPictureRepository postPictureRepository;
 
 	public DAOPostPicture saveOrUpdate(PostPictureDTO postPictureDTO) {
-		Optional<PostEntity> tempProfile = postRepository.findById((int) postPictureDTO.getPost_id());
-		PostEntity updateProfile = tempProfile.orElse(null);
+		Optional<PostsEntity> tempProfile = postRepository.findById((int) postPictureDTO.getPost_id());
+		PostsEntity updateProfile = tempProfile.orElse(null);
 		if(updateProfile!=null) { //to check if profile exists first
 			DAOPostPicture daoProfilePic = new DAOPostPicture();
 			daoProfilePic.setPostPic(postPictureDTO.getPostPic());
