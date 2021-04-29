@@ -145,7 +145,7 @@
                 "retries": 8,
                 "command": [
                     "CMD-SHELL",
-                    "curl 127.0.0.1:9200/_cat/health || exit 1"
+                    "curl -f http://127.0.0.1:9200/_cat/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
@@ -226,7 +226,7 @@
                 "retries": 8,
                 "command": [
                     "CMD-SHELL",
-                    "curl http://127.0.0.1:5601/status || exit 1"
+                    "curl -f http://127.0.0.1:5601/status || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
@@ -339,7 +339,7 @@
                 "retries": 8,
                 "command": [
                     "CMD-SHELL",
-                    "curl http://127.0.0.1:8080/actuator/health || exit 1"
+                    "curl -f http://127.0.0.1:8080/actuator/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
