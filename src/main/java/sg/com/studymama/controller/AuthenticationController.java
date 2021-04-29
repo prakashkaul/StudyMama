@@ -29,7 +29,7 @@ import sg.com.studymama.service.JwtUtil;
 
 @RestController
 public class AuthenticationController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
 	@Autowired
@@ -61,13 +61,16 @@ public class AuthenticationController {
 
 		return ResponseEntity.ok(new AuthenticationResponse(token));
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		LOG.info("New registration: " + user.toString());
-		return ResponseEntity.ok(userDetailsService.save(user));
+		if (user.getRole() == "ROLE_USER" || user.getRole() == "ROLE_ADMIN") {
+			LOG.info("New registration: " + user.toString());
+			return ResponseEntity.ok(userDetailsService.save(user));
+		}
+		throw new Exception("WRONG ROLE SELECTION");
 	}
-	
+
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
 	public ResponseEntity<?> refreshtoken(HttpServletRequest request) throws Exception {
 		// From the HttpRequest get the claims

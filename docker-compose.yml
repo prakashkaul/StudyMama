@@ -9,6 +9,8 @@ services:
       MYSQL_USER: studymama
       MYSQL_PASSWORD: studymama@123
       MYSQL_ROOT_PASSWORD: root
+    security_opt:
+      - seccomp:unconfined
     ports:
       - '3306:3306'
 
