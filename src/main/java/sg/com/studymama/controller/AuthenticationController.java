@@ -64,11 +64,8 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		if (user.getRole() == "ROLE_USER" || user.getRole() == "ROLE_ADMIN") {
-			LOG.info("New registration: " + user.toString());
-			return ResponseEntity.ok(userDetailsService.save(user));
-		}
-		throw new Exception("WRONG ROLE SELECTION");
+		LOG.info("New registration: " + user.toString());
+		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
