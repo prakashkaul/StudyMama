@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.DTO.UserProfileDTO;
 import sg.com.studymama.model.DAOUserProfile;
-import sg.com.studymama.model.UserProfileDTO;
 import sg.com.studymama.repository.UserProfileRepository;
 
 @Service

@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import sg.com.studymama.Util;
-import sg.com.studymama.model.UserDTO;
+import sg.com.studymama.DTO.UserDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
