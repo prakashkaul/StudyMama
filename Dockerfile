@@ -14,6 +14,10 @@ COPY src /home/app/src
 COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean install -DskipTests
 
+FROM alpine:3.7
+RUN apk add --no-cache curl
+ENTRYPOINT ["mysql"]
+
 #
 # Package stage
 #
