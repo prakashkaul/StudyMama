@@ -69,6 +69,7 @@ public class PostsController {
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(postDTO.toString());
+			
 			return "redirect:/post";
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
@@ -81,7 +82,7 @@ public class PostsController {
 	
 	@RequestMapping(value = "/postDelete",method= RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
 	public String postDelete(@RequestParam(name="postId")Integer postId) { 
-		LOG.info("pOST ID IS " + postId);
+		LOG.info("POST ID IS " + postId);
 		
 		postService.deletePost(postId);
 		

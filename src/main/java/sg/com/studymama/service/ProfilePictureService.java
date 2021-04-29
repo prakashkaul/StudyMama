@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.DTO.ProfilePictureDTO;
 import sg.com.studymama.model.DAOProfilePicture;
 import sg.com.studymama.model.DAOUserProfile;
-import sg.com.studymama.model.ProfilePictureDTO;
 import sg.com.studymama.repository.ProfilePictureRepository;
 import sg.com.studymama.repository.UserProfileRepository;
 

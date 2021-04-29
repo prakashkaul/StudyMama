@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.com.studymama.model.PostPictureDTO;
-import sg.com.studymama.model.ProfilePictureDTO;
+import sg.com.studymama.DTO.PostPictureDTO;
+import sg.com.studymama.DTO.ProfilePictureDTO;
 import sg.com.studymama.service.PostPictureService;
 import sg.com.studymama.service.ProfilePictureService;
 

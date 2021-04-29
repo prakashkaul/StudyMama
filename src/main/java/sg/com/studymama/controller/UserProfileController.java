@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import sg.com.studymama.DTO.UserProfileDTO;
 import sg.com.studymama.model.DAOUser;
-import sg.com.studymama.model.UserProfileDTO;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.UserProfileService;
 
