@@ -87,6 +87,7 @@ public class PostControllerTest {
         map.add("pageSize", "3");
 
         when(springDataPostService.getAllPost(any(Pageable.class))).thenReturn(page);
+
         MvcResult mvcResult = mockMvc.perform(
                 MockMvcRequestBuilders.get(uri).contentType(MediaType.APPLICATION_JSON_VALUE).queryParams(map))
                 .andReturn();

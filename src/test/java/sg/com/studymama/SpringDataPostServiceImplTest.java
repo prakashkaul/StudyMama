@@ -50,6 +50,7 @@ public class SpringDataPostServiceImplTest {
         final Post post = posts.get(0);
         when(postRepository.save(post))
                 .thenReturn(post);
+
         final Post result = springDataPostService.createPost(post);
         assertEquals(result,post);
 
