@@ -61,7 +61,7 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 3,
+                "retries": 8,
                 "command": [
                     "CMD-SHELL",
                     "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1"
@@ -142,7 +142,7 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 3,
+                "retries": 8,
                 "command": [
                     "CMD-SHELL",
                     "curl 127.0.0.1:9200/_cat/health || exit 1"
@@ -223,7 +223,7 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 3,
+                "retries": 8,
                 "command": [
                     "CMD-SHELL",
                     "curl http://127.0.0.1:5601/status || exit 1"
@@ -327,12 +327,16 @@
                 {
                     "containerName": "kibana",
                     "condition": "HEALTHY"
+                },
+                {
+                    "containerName": "mysql",
+                    "condition": "HEALTHY"
                 }
             ],
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 3,
+                "retries": 8,
                 "command": [
                     "CMD-SHELL",
                     "curl http://127.0.0.1:8080/actuator/health || exit 1"
