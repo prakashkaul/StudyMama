@@ -10,4 +10,4 @@ Resources:
         TaskDefinition: <TASK_DEFINITION>
         LoadBalancerInfo:
           ContainerName: "studymama-container"
-          ContainerPort: 80
+          ContainerPort: 8080
