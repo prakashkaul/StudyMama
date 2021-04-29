@@ -17,8 +17,11 @@ RUN mvn -f /home/app/pom.xml clean install -DskipTests
 #
 # Package stage
 #
-FROM ubuntu:bionic
-RUN apt-get update && apt-get install -y curl
+#ROM ubuntu:bionic
+#RUN apt-get update && apt-get install -y curl
+
+FROM openjdk:8-jre-alpine
+RUN apk --no-cache add curl
 COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
 #COPY target/studymama-0.0.1-SNAPSHOT.jar studymama-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
