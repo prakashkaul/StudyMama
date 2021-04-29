@@ -64,7 +64,7 @@
                 "retries": 3,
                 "command": [
                     "CMD-SHELL",
-                    "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD"
+                    "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
@@ -145,7 +145,7 @@
                 "retries": 3,
                 "command": [
                     "CMD-SHELL",
-                    "curl --silent --fail localhost:9200/_cat/health || exit 1"
+                    "curl 127.0.0.1:9200/_cat/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
@@ -226,7 +226,7 @@
                 "retries": 3,
                 "command": [
                     "CMD-SHELL",
-                    "curl -I  http://127.0.0.1:5601/status"
+                    "curl http://127.0.0.1:5601/status || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
@@ -335,7 +335,7 @@
                 "retries": 3,
                 "command": [
                     "CMD-SHELL",
-                    "curl -i http://127.0.0.1:8080/actuator/health"
+                    "curl http://127.0.0.1:8080/actuator/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
