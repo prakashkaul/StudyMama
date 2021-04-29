@@ -61,14 +61,14 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 8,
+                "retries": 10,
                 "command": [
                     "CMD-SHELL",
                     "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
-                "startPeriod": null
+                "startPeriod": 300
             },
             "essential": true,
             "links": null,
@@ -142,14 +142,14 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 8,
+                "retries": 10,
                 "command": [
                     "CMD-SHELL",
                     "curl -f http://127.0.0.1:9200/_cat/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
-                "startPeriod": null
+                "startPeriod": 300
             },
             "essential": true,
             "links": null,
@@ -223,14 +223,14 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 8,
+                "retries": 10,
                 "command": [
                     "CMD-SHELL",
                     "curl -f http://127.0.0.1:5601/status || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
-                "startPeriod": null
+                "startPeriod": 300
             },
             "essential": true,
             "links": null,
@@ -336,14 +336,14 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
-                "retries": 8,
+                "retries": 10,
                 "command": [
                     "CMD-SHELL",
                     "curl -f http://127.0.0.1:8080/actuator/health || exit 1"
                 ],
                 "timeout": 5,
                 "interval": 30,
-                "startPeriod": null
+                "startPeriod": 300
             },
             "essential": true,
             "links": null,
