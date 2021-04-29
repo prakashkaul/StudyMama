@@ -1,427 +1,370 @@
 {
-  "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
-  "containerDefinitions": [
-    {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-ecs-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": [
-        "java",
-        "-jar",
-        "/usr/local/lib/app.jar"
-      ],
-      "portMappings": [
+    "ipcMode": null,
+    "executionRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
         {
-          "hostPort": 8080,
-          "protocol": "tcp",
-          "containerPort": 8080
-        }
-      ],
-      "command": null,
-      "linuxParameters": null,
-      "cpu": 0,
-      "environment": [
-        {
-          "name": "SPRING_DATASOURCE_PASSWORD",
-          "value": "studymama@123"
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
+            "portMappings": [
+                {
+                    "hostPort": 3306,
+                    "protocol": "tcp",
+                    "containerPort": 3306
+                }
+            ],
+            "command": null,
+            "linuxParameters": null,
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "MYSQL_DATABASE",
+                    "value": "studymama"
+                },
+                {
+                    "name": "MYSQL_PASSWORD",
+                    "value": "studymama@123"
+                },
+                {
+                    "name": "MYSQL_ROOT_PASSWORD",
+                    "value": "root"
+                },
+                {
+                    "name": "MYSQL_USER",
+                    "value": "studymama"
+                }
+            ],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": 1024,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "mysql:8",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                    "CMD-SHELL",
+                    "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": null
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "mysql"
         },
         {
-          "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:mysql://mysqldb:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
+            "portMappings": [
+                {
+                    "hostPort": 9200,
+                    "protocol": "tcp",
+                    "containerPort": 9200
+                },
+                {
+                    "hostPort": 9300,
+                    "protocol": "tcp",
+                    "containerPort": 9300
+                }
+            ],
+            "command": null,
+            "linuxParameters": null,
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "discovery.type",
+                    "value": "single-node"
+                },
+                {
+                    "name": "http.host",
+                    "value": "0.0.0.0"
+                },
+                {
+                    "name": "transport.host",
+                    "value": "127.0.0.1"
+                }
+            ],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": 500,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "docker.elastic.co/elasticsearch/elasticsearch:7.6.0",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                    "CMD-SHELL",
+                    "curl --silent --fail localhost:9200/_cat/health || exit 1"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": null
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "elasticsearch"
         },
         {
-          "name": "SPRING_DATASOURCE_USERNAME",
-          "value": "studymama"
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
+            "portMappings": [
+                {
+                    "hostPort": 5601,
+                    "protocol": "tcp",
+                    "containerPort": 5601
+                }
+            ],
+            "command": null,
+            "linuxParameters": null,
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "ELASTICSEARCH_HOSTS",
+                    "value": "http://127.0.0.1:9200/"
+                },
+                {
+                    "name": "ES_JAVA_OPTS",
+                    "value": "-Xms1g -Xmx2g"
+                },
+                {
+                    "name": "SERVER_NAME",
+                    "value": "kibana"
+                }
+            ],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": 500,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "docker.elastic.co/kibana/kibana:7.6.0",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": [
+                {
+                    "containerName": "elasticsearch",
+                    "condition": "HEALTHY"
+                }
+            ],
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                    "CMD-SHELL",
+                    "curl -I  http://127.0.0.1:5601/status"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": null
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "kibana"
         },
         {
-          "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
-          "value": "1s"
-        },
-        {
-          "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
-          "value": "None"
-        },
-        {
-          "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
-          "value": "1m"
-        },
-        {
-          "name": "SPRING_ELASTICSEARCH_REST_URIS",
-          "value": "elasticsearch:9200"
-        },
-        {
-          "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
-          "value": "None"
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": [
+                "java",
+                "-jar",
+                "/usr/local/lib/app.jar"
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "containerPort": 8080
+                }
+            ],
+            "command": [],
+            "linuxParameters": null,
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "SPRING_DATASOURCE_PASSWORD",
+                    "value": "studymama@123"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_URL",
+                    "value": "jdbc:mysql://127.0.01:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_USERNAME",
+                    "value": "studymama"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
+                    "value": "1s"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
+                    "value": "None"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
+                    "value": "1m"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_URIS",
+                    "value": "http://localhost:9200"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
+                    "value": "None"
+                }
+            ],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": 1024,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:c0286a77fe5625a20cbad2f8af5486161245d66f",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": [
+                {
+                    "containerName": "elasticsearch",
+                    "condition": "HEALTHY"
+                },
+                {
+                    "containerName": "kibana",
+                    "condition": "HEALTHY"
+                }
+            ],
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                    "CMD-SHELL",
+                    "curl -m 5 --silent --fail --request GET http://localhost:8080/actuator/health | jq --exit-status -n 'inputs | if has(\"status\") then .status==\"UP\" else false end' > /dev/null || exit 1"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": null
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "studymama"
         }
-      ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:latest",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "studymama-container"
-    },
-    {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-ecs-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": null,
-      "portMappings": [
-        {
-          "hostPort": 5044,
-          "protocol": "tcp",
-          "containerPort": 5044
-        }
-      ],
-      "command": [
-        "logstash",
-        "-f",
-        "./conf/logstash.conf"
-      ],
-      "linuxParameters": null,
-      "cpu": 0,
-      "environment": [],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "docker.elastic.co/logstash/logstash:7.6.0",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "logstash"
-    },
-    {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-ecs-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": null,
-      "portMappings": [
-        {
-          "hostPort": 5601,
-          "protocol": "tcp",
-          "containerPort": 5601
-        }
-      ],
-      "command": null,
-      "linuxParameters": null,
-      "cpu": 0,
-      "environment": [
-        {
-          "name": "ELASTICSEARCH_URL",
-          "value": "http://elasticsearch:9200/"
-        },
-        {
-          "name": "ES_JAVA_OPTS",
-          "value": "-Xms1g -Xmx2g"
-        },
-        {
-          "name": "SERVER_NAME",
-          "value": "kibana"
-        }
-      ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "docker.elastic.co/kibana/kibana:7.6.0",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "kibana"
-    },
-    {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-ecs-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": null,
-      "portMappings": [
-        {
-          "hostPort": 9200,
-          "protocol": "tcp",
-          "containerPort": 9200
-        },
-        {
-          "hostPort": 9300,
-          "protocol": "tcp",
-          "containerPort": 9300
-        }
-      ],
-      "command": null,
-      "linuxParameters": null,
-      "cpu": 0,
-      "environment": [
-        {
-          "name": "discovery.type",
-          "value": "single-node"
-        }
-      ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "docker.elastic.co/elasticsearch/elasticsearch:7.6.0",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "elasticsearch"
-    },
-    {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/studymama-ecs-task-definition",
-          "awslogs-region": "ap-southeast-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "entryPoint": null,
-      "portMappings": [
-        {
-          "hostPort": 3306,
-          "protocol": "tcp",
-          "containerPort": 3306
-        }
-      ],
-      "command": null,
-      "linuxParameters": null,
-      "cpu": 0,
-      "environment": [
-        {
-          "name": "MYSQL_DATABASE",
-          "value": "studymama"
-        },
-        {
-          "name": "MYSQL_USER",
-          "value": "studymama"
-        },
-        {
-          "name": "MYSQL_PASSWORD",
-          "value": "studymama@123"
-        },
-        {
-          "name": "MYSQL_ROOT_PASSWORD",
-          "value": "root"
-        }
-      ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "mysql:8",
-      "startTimeout": null,
-      "firelensConfiguration": null,
-      "dependsOn": null,
-      "disableNetworking": null,
-      "interactive": null,
-      "healthCheck": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "pseudoTerminal": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
-      "privileged": null,
-      "name": "db"
-    }
-  ],
-  "placementConstraints": [],
-  "taskRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
-  "compatibilities": [
-    "EC2",
-    "FARGATE"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:336218866683:task-definition/studymama-ecs-task-definition:1",
-  "family": "studymama-ecs-task-definition",
-  "requiresAttributes": [
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.task-eni"
-    }
-  ],
-  "pidMode": null,
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "networkMode": "awsvpc",
-  "memory": "8192",
-  "cpu": "4096",
-  "revision": 1,
-  "status": "ACTIVE",
-  "inferenceAccelerators": null,
-  "proxyConfiguration": null,
-  "volumes": []
+    ],
+    "memory": "8192",
+    "taskRoleArn": "arn:aws:iam::336218866683:role/ecsTaskExecutionRole",
+    "family": "studymama-task-definition",
+    "pidMode": null,
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "4096",
+    "inferenceAccelerators": null,
+    "proxyConfiguration": null,
+    "volumes": [],
+    "tags": []
 }
