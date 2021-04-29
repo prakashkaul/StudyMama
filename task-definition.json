@@ -298,7 +298,7 @@
                 },
                 {
                     "name": "SPRING_ELASTICSEARCH_REST_URIS",
-                    "value": "http://localhost:9200"
+                    "value": "http://127.0.0.1:9200"
                 },
                 {
                     "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
@@ -335,7 +335,7 @@
                 "retries": 3,
                 "command": [
                     "CMD-SHELL",
-                    "curl -m 5 --silent --fail --request GET http://localhost:8080/actuator/health | jq --exit-status -n 'inputs | if has(\"status\") then .status==\"UP\" else false end' > /dev/null || exit 1"
+                    "curl -i http://127.0.0.1:8080/actuator/health"
                 ],
                 "timeout": 5,
                 "interval": 30,
