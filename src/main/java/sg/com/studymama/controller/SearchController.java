@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.github.javafaker.Faker;
 
-@CrossOrigin(origins = "*")
 @RestController
 public class SearchController {
 
@@ -32,6 +31,11 @@ public class SearchController {
 		String search = "SEARCH CATEGORY: " + cat;
 		LOG.info(cat);
 		return search;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/categoryList")
+	public List<String> searchCategory() {
+		return CATEGORY_LIST;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/fakecategorysearch")

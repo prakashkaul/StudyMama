@@ -13,7 +13,6 @@ import sg.com.studymama.model.Post;
 import sg.com.studymama.service.ElasticsearchRestTemplateServiceImpl;
 import sg.com.studymama.service.SpringDataPostService;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/postService")
 public class PostController {

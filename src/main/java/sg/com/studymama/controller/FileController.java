@@ -15,7 +15,6 @@ import sg.com.studymama.model.ProfilePictureDTO;
 import sg.com.studymama.service.PostPictureService;
 import sg.com.studymama.service.ProfilePictureService;
 
-@CrossOrigin(origins = "*")
 @RestController
 public class FileController {
 
