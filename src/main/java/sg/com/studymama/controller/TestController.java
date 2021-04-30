@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,5 +22,10 @@ public class TestController {
 	public String helloAdmin() {
 		LOG.info("HELLO ADMIN");
 		return "Hello Admin";
+	}
+	
+	@RequestMapping("/greeting")
+	public @ResponseBody String greeting() {
+		return "Hello, World. Welcome to StudyMama!";
 	}
 }

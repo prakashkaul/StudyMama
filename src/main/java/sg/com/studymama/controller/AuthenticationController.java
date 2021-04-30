@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import io.jsonwebtoken.impl.DefaultClaims;
+import sg.com.studymama.DTO.UserDTO;
 import sg.com.studymama.model.AuthenticationRequest;
 import sg.com.studymama.model.AuthenticationResponse;
-import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.JwtUtil;
 
 @CrossOrigin (origins = "*")
 @RestController
 public class AuthenticationController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
 	@Autowired

@@ -2,66 +2,97 @@ package sg.com.studymama.Entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//import org.hibernate.envers.Audited;
+import org.hibernate.envers.Audited;
+
+import sg.com.studymama.Entity.CommentEntity;
+import sg.com.studymama.Entity.RateEntity;
 
 @Entity
-//@Audited
+@Audited
 @Table(name = "post")
-public class PostEntity implements Serializable {
+public class PostsEntity implements Serializable {
 	
 	private static final long serialVersionUID = -2379013249132428687L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "POST_ID", nullable = false, length = 6)
+    @Column(name = "POST_ID", length = 6)
     private Integer postId; 
 	
-    @Column(name = "TITLE", length = 30, nullable = false)
+    @Column(name = "TITLE", length = 30)
     private String title;
     
-    @Column(name = "DESCRIPTION", length = 255, nullable = false)
+    @Column(name = "DESCRIPTION", length = 250)
     private String description;
     
     @Column(name = "ACCOUNT_ID", length = 10)
     private Integer accountId;
 
-    @Column(name = "CATEGORY", length = 5, nullable = false)
-    private String category;
+    @Column(name = "CATEGORY")
+    private String category; 
     
-    @Column(name = "WEBSITE", length = 5, nullable = true)
+    @Column(name = "WEBSITE", length = 5)
     private String website;
     
-    @Column(name = "PRICE", length = 5, nullable = true)
+    @Column(name = "PRICE", length = 5)
     private String price;
     
-    @Column(name = "CONTACT", length = 15, nullable = true)
+    @Column(name = "CONTACT", length = 15)
     private String contact;
     
-    @Column(name = "IMAGE", length = 5, nullable = true)
+    @Column(name = "IMAGE", length = 5)
     private String images;
     
-    @Column(name = "GPS_X", length = 5, nullable = true)
+    @Column(name = "GPS_X", length = 5)
     private Double gpsX;
     
-    @Column(name = "GPS_Y", length = 5, nullable = true)
+    @Column(name = "GPS_Y", length = 5)
     private Double gpsY;
     
-    @Column(name = "STATUS", length = 5, nullable = false)
+    @Column(name = "STATUS", length = 5)
     private String status;
 
-    @Column(name = "CREATION_DATE", nullable = false)
+    @Column(name = "CREATION_DATE")
     private Timestamp creationDate;
     
     @Column(name = "LAST_UPDATED_DATE")
     private Timestamp lastUpdatedDate;
+    
+    @OneToMany
+    @JoinColumn(name = "POST_ID" ,insertable=false, updatable=false)
+    private Set<RateEntity> rateEntity;
+    
+    @OneToMany
+    @JoinColumn(name = "POST_ID",insertable=false, updatable=false)
+    private Set<CommentEntity> commentEntity;
+    
+
+	public Set<RateEntity> getRateEntity() {
+		return rateEntity;
+	}
+
+	public void setRateEntity(Set<RateEntity> rateEntity) {
+		this.rateEntity = rateEntity;
+	}
+
+	public Set<CommentEntity> getCommentEntity() {
+		return commentEntity;
+	}
+
+	public void setCommentEntity(Set<CommentEntity> commentEntity) {
+		this.commentEntity = commentEntity;
+	}
 
 	public Integer getPostId() {
 		return postId;

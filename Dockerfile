@@ -1,33 +1,28 @@
-#FROM openjdk:8-jdk-alpine
-#ENV APP_FILE studymama-0.0.1-SNAPSHOT.jar
-#ENV APP_HOME /usr/app
-#COPY target/$APP_FILE $APP_HOME/
-#WORKDIR $APP_HOME
-#ENTRYPOINT ["sh", "-c"]
-#CMD ["exec java -jar $APP_FILE"]
 
-#FROM    maven:3.6.0-jdk-8 AS build
-#COPY src /home/app/src
-#COPY pom.xml /home/app
-#RUN mvn -f /home/app/pom.xml clean package
+# USE THIS FOR DOCKER DESKTOP
+#FROM gcr.io/distroless/java  
+#COPY target/studymama-0.0.1-SNAPSHOT.jar studymama-0.0.1-SNAPSHOT.jar
+#EXPOSE 8080  
+#ENTRYPOINT ["java","-jar","studymama-0.0.1-SNAPSHOT.jar"]
 
-#FROM openjdk:8-jdk-alpine
-#COPY --from=build /home/app/target/studymama-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
-#EXPOSE 8080
-#ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
+# USE THIS AWS ECS
+#
+# Build stage
+#
+FROM maven:3.8.1-jdk-8-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean install -DskipTests
 
-#FROM openjdk:8-jdk-alpine
-#ARG JAR_FILE=target/*.jar
-#COPY ${JAR_FILE} app.jar
-#ENTRYPOINT ["java","-jar","/app.jar"]
+#
+# Package stage
+#
+#ROM ubuntu:bionic
+#RUN apt-get update && apt-get install -y curl
 
-#FROM maven:3.6-jdk-8 AS build  
-#COPY src /usr/src/app/src  
-#COPY pom.xml /usr/src/app  
-#RUN mvn -f /usr/src/app/pom.xml clean install -U -DskipTests
-
-FROM gcr.io/distroless/java  
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-EXPOSE 8080  
-ENTRYPOINT ["java","-jar","app.jar"]
+FROM openjdk:8-jre-alpine
+RUN apk --no-cache add curl
+COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
+#COPY target/studymama-0.0.1-SNAPSHOT.jar studymama-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]

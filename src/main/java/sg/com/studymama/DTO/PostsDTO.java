@@ -2,8 +2,9 @@ package sg.com.studymama.DTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
-public class PostDTO implements Serializable {
+public class PostsDTO implements Serializable {
 	
 	private static final long serialVersionUID = 5017807602995665018L;
 	
@@ -19,13 +20,15 @@ public class PostDTO implements Serializable {
 	private Double gpsY;
 	private String contact;
 	private String images;
+	private BigDecimal score;
+	private List<String> comments;
 	
-	public PostDTO() {
+	public PostsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
+	public PostsDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
 			String website, String status, Double gpsX, Double gpsY, String contact, String images) {
 		super();
 		this.postId = postId;
@@ -40,6 +43,26 @@ public class PostDTO implements Serializable {
 		this.gpsY = gpsY;
 		this.contact = contact;
 		this.images = images;
+	}
+
+	public PostsDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
+			String website, String status, Double gpsX, Double gpsY, String contact, String images, BigDecimal score,
+			List<String> comments) {
+		super();
+		this.postId = postId;
+		this.accountId = accountId;
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.price = price;
+		this.website = website;
+		this.status = status;
+		this.gpsX = gpsX;
+		this.gpsY = gpsY;
+		this.contact = contact;
+		this.images = images;
+		this.score = score;
+		this.comments = comments;
 	}
 
 	public Integer getPostId() {
@@ -138,4 +161,19 @@ public class PostDTO implements Serializable {
 		this.images = images;
 	}
 
+	public BigDecimal getScore() {
+		return score;
+	}
+
+	public void setScore(BigDecimal score) {
+		this.score = score;
+	}
+
+	public List<String> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<String> comments) {
+		this.comments = comments;
+	}
 }
