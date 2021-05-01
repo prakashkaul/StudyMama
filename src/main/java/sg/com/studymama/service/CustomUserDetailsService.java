@@ -1,5 +1,6 @@
 package sg.com.studymama.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,10 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.DTO.UserDTO;
 import sg.com.studymama.exceptions.UserAlreadyExistAuthenticationException;
+import sg.com.studymama.exceptions.UserRoleException;
 import sg.com.studymama.model.DAOUser;
 import sg.com.studymama.model.DAOUserProfile;
-import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.repository.UserProfileRepository;
 import sg.com.studymama.repository.UserRepository;
 
@@ -25,6 +27,7 @@ import sg.com.studymama.repository.UserRepository;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
+	private static final List<String> ROLES = new ArrayList<String>(Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
 
 	@Autowired
 	private UserRepository userDao;
@@ -48,6 +51,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	public DAOUser save(UserDTO user) throws UserAlreadyExistAuthenticationException {
+		if (!ROLES.contains(user.getRole()))
+			throw new UserRoleException("Wrong role selection");
 		if (userDao.findByUsername(user.getUsername()) == null) {
 			DAOUser newUser = new DAOUser();
 			newUser.setUsername(user.getUsername());

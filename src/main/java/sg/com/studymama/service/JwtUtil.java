@@ -24,7 +24,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import sg.com.studymama.controller.AuthenticationController;
 
 @Service
 public class JwtUtil {
@@ -38,6 +37,10 @@ public class JwtUtil {
 	@Value("${jwt.secret}")
 	public void setSecret(String secret) {
 		this.secret = secret;
+	}
+
+	public String getSecret() {
+		return secret;
 	}
 
 	@Value("${jwt.jwtExpirationInMs}")

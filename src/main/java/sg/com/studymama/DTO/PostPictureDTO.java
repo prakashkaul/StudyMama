@@ -1,4 +1,4 @@
-package sg.com.studymama.model;
+package sg.com.studymama.DTO;
 
 import java.util.Arrays;
 
