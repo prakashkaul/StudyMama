@@ -1,4 +1,4 @@
-package sg.com.studymama.DTO;
+package sg.com.studymama.model;
 
 public class UserDTO {
 

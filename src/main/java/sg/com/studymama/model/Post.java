@@ -52,6 +52,9 @@ public class Post implements Serializable {
         this.accountId = accountId;
     }
 
+    public Post() {
+    }
+
     public String getTitle() {
         return title;
     }

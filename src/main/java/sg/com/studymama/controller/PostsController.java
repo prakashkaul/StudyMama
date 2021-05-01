@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.com.studymama.DTO.PostsDTO;
 import sg.com.studymama.service.PostService;
+import sg.com.studymama.service.SpringDataPostService;
 
 @RestController
 public class PostsController {
@@ -29,6 +30,9 @@ public class PostsController {
 	
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private  SpringDataPostService springDataPostService;
+
 	
 	@GetMapping("post")
 	public String postList() {
@@ -66,10 +70,10 @@ public class PostsController {
 		
 		try {
 			postService.save(postDTO);
+			//springDataPostService.createPost(postDTO);
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(postDTO.toString());
-			
 			return "redirect:/post";
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);

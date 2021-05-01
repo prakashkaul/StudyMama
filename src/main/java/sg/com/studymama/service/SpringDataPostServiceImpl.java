@@ -38,6 +38,7 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
 
 
   public Post createPost(Post Post) {
+
     return postRepository.save(Post);
   }
 
