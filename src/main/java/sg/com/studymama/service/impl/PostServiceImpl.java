@@ -8,17 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.com.studymama.DTO.PostsDTO;
 import sg.com.studymama.Entity.CommentEntity;
 import sg.com.studymama.Entity.PostsEntity;
 import sg.com.studymama.Entity.RateEntity;
-import sg.com.studymama.model.PaginationParamDTO;
-import sg.com.studymama.model.PaginationResultDTO;
 import sg.com.studymama.repository.PostRepository;
 import sg.com.studymama.service.PostService;
 

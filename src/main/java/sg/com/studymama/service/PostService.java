@@ -4,8 +4,6 @@ import java.util.List;
 
 import sg.com.studymama.DTO.PostsDTO;
 import sg.com.studymama.Entity.PostsEntity;
-import sg.com.studymama.model.PaginationParamDTO;
-import sg.com.studymama.model.PaginationResultDTO;
 
 public interface PostService {
 	
