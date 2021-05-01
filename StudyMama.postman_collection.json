@@ -237,6 +237,47 @@
 			"response": []
 		},
 		{
+			"name": "getProfile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaXNVc2VyIjp0cnVlLCJleHAiOjE2MTk4NjM5OTIsImlhdCI6MTYxOTg2MDM5Mn0.g8QMxthhrB4Fc6DdmtdEHHUkSPgBP1CoElNsvStptNHeeeYNGUAY5abKDbZ1s_9XT-khrcUSVFwktHmj8Z1Lqg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"user\",\r\n    \"firstName\":\"firstName\",\r\n    \"lastName\":\"lastName\",\r\n    \"contact\":\"contact\",\r\n    \"address\":\"address\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getProfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "profilePicture",
 			"request": {
 				"auth": {
