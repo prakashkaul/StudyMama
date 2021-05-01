@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import io.jsonwebtoken.impl.DefaultClaims;
 import sg.com.studymama.DTO.UserDTO;
@@ -27,6 +28,7 @@ import sg.com.studymama.model.AuthenticationResponse;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.JwtUtil;
 
+@CrossOrigin (origins = "*")
 @RestController
 public class AuthenticationController {
 
@@ -41,6 +43,7 @@ public class AuthenticationController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 
+	@CrossOrigin (origins = "*")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
@@ -62,12 +65,14 @@ public class AuthenticationController {
 		return ResponseEntity.ok(new AuthenticationResponse(token));
 	}
 
+	@CrossOrigin (origins = "*")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		LOG.info("New registration: " + user.toString());
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
+	@CrossOrigin (origins = "*")
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
 	public ResponseEntity<?> refreshtoken(HttpServletRequest request) throws Exception {
 		// From the HttpRequest get the claims
