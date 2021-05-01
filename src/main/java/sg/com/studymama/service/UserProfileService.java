@@ -32,4 +32,13 @@ public class UserProfileService {
 		}
 		return null;
 	}
+	
+	public DAOUserProfile get(long user_profile_id) {
+		Optional<DAOUserProfile> tempProfile = userProfileDao.findById(user_profile_id);
+		DAOUserProfile updateProfile = tempProfile.orElse(null);
+		if(updateProfile!=null) {
+			return updateProfile;
+		}
+		return null;
+	}
 }
