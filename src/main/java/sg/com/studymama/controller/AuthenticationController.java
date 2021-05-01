@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,12 +16,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.impl.DefaultClaims;
 import sg.com.studymama.DTO.UserDTO;
 import sg.com.studymama.model.AuthenticationRequest;
@@ -28,7 +32,7 @@ import sg.com.studymama.model.AuthenticationResponse;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.JwtUtil;
 
-@CrossOrigin (origins = "*")
+@CrossOrigin(origins = "*")
 @RestController
 public class AuthenticationController {
 
@@ -43,7 +47,7 @@ public class AuthenticationController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 
-	@CrossOrigin (origins = "*")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
@@ -65,22 +69,36 @@ public class AuthenticationController {
 		return ResponseEntity.ok(new AuthenticationResponse(token));
 	}
 
-	@CrossOrigin (origins = "*")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		LOG.info("New registration: " + user.toString());
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
-	@CrossOrigin (origins = "*")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
 	public ResponseEntity<?> refreshtoken(HttpServletRequest request) throws Exception {
+
+		final String authHeader = request.getHeader("Authorization");
+		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+			throw new ServletException("Missing or invalid Authorization header.");
+		}
+
+		final String token = authHeader.substring(7);
+		try {
+			final Claims claims = Jwts.parser().setSigningKey(jwtTokenUtil.getSecret()).parseClaimsJws(token).getBody();
+			request.setAttribute("claims", claims);
+		} catch (final SignatureException e) {
+			throw new ServletException("Invalid token.");
+		}
+
 		// From the HttpRequest get the claims
 		DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) request.getAttribute("claims");
 		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
-		String token = jwtTokenUtil.doGenerateRefreshToken(expectedMap, expectedMap.get("sub").toString());
-		LOG.info("Token refresh request: " + token);
-		return ResponseEntity.ok(new AuthenticationResponse(token));
+		String tokenNew = jwtTokenUtil.doGenerateRefreshToken(expectedMap, expectedMap.get("sub").toString());
+		LOG.info("Token refresh request: " + tokenNew);
+		return ResponseEntity.ok(new AuthenticationResponse(tokenNew));
 	}
 
 	public Map<String, Object> getMapFromIoJsonwebtokenClaims(DefaultClaims claims) {
