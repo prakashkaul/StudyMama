@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Document(indexName = "post")
-public class Post implements Serializable {
+public class PostData implements Serializable {
 
     @Id
     private String id;
@@ -41,7 +41,7 @@ public class Post implements Serializable {
 
     private String accountId;
 
-    public  Post(PostsEntity postsDTO){
+    public  PostData(PostsEntity postsDTO){
         this.id = postsDTO.getPostId().toString();
         this.title = postsDTO.getTitle();
         this.description = postsDTO.getDescription();
@@ -59,7 +59,7 @@ public class Post implements Serializable {
 
 
 
-    public Post() {
+    public PostData() {
     }
 
 

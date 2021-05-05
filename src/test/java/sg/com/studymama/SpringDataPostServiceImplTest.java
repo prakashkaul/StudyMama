@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 import sg.com.studymama.repository.PostElasticSearchRepository;
 import sg.com.studymama.service.SpringDataPostServiceImpl;
 
@@ -34,24 +34,24 @@ public class SpringDataPostServiceImplTest {
     @InjectMocks
     private SpringDataPostServiceImpl springDataPostService;
 
-    List<Post> posts;
+    List<PostData> posts;
 
     @Before
     public void setUp() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         //read json file and convert to customer object
-         posts = objectMapper.readValue(new File("sample_data.json"), new TypeReference<List<Post>>(){});
+         posts = objectMapper.readValue(new File("sample_data.json"), new TypeReference<List<PostData>>(){});
         //print customer details
         System.out.println(Arrays.toString(posts.toArray()));
     }
 
     @Test
     public void createPostTest() throws IOException {
-        final Post post = posts.get(0);
+        final PostData post = posts.get(0);
         when(postRepository.save(post))
                 .thenReturn(post);
 
-        final Post result = springDataPostService.createPost(post);
+        final PostData result = springDataPostService.createPost(post);
         assertEquals(result,post);
 
     }
@@ -60,14 +60,14 @@ public class SpringDataPostServiceImplTest {
     public void getPostTest() throws IOException {
         when(postRepository.findById("1"))
                 .thenReturn(Optional.ofNullable(posts.get(0)));
-        final Optional<Post> result = springDataPostService.getPost("1");
+        final Optional<PostData> result = springDataPostService.getPost("1");
         assertEquals(result.get(),posts.get(0));
 
     }
 
     @Test
     public void deletePostTest() throws IOException {
-        Post post = posts.get(5);
+        PostData post = posts.get(5);
         doNothing().when(postRepository).deleteById("1");
         springDataPostService.deletePost("1");
         verify(postRepository).deleteById(any(String.class));
@@ -76,7 +76,7 @@ public class SpringDataPostServiceImplTest {
 
     @Test
     public void getPostsByCategoryTest() throws IOException {
-        Post post = posts.get(5);
+        PostData post = posts.get(5);
         doNothing().when(postRepository).deleteById("1");
         springDataPostService.deletePost("1");
         verify(postRepository).deleteById(any(String.class));

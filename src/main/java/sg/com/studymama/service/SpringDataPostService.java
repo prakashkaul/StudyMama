@@ -5,33 +5,33 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface SpringDataPostService {
 
-  Post createPost(Post post);
+  PostData createPost(PostData post);
 
-  Optional<Post> getPost(String id);
+  Optional<PostData> getPost(String id);
 
   void deletePost(String id);
 
-  Iterable<Post> insertBulkPost(Page<Post> Posts);
+  Iterable<PostData> insertBulkPost(Page<PostData> Posts);
 
-  Page<Post> getPostsByCategory(String category,Pageable pageable);
+  Page<PostData> getPostsByCategory(String category,Pageable pageable);
 
-  Page<Post> getAllPost(Pageable pageable);
+  Page<PostData> getAllPost(Pageable pageable);
 
-  Page<Post> searchPostBySimilarTitle(String title,Pageable pageable);
-  SearchPage<Post> searchPostByName(String title, Pageable pageable);
+  Page<PostData> searchPostBySimilarTitle(String title,Pageable pageable);
+  SearchPage<PostData> searchPostByName(String title, Pageable pageable);
 
-  Page<Post> searchPostBySimilarCategory(String category,Pageable pageable);
+  Page<PostData> searchPostBySimilarCategory(String category,Pageable pageable);
 
-  Page<Post> searchPostByCategory(String category,Pageable pageable);
+  Page<PostData> searchPostByCategory(String category,Pageable pageable);
 
-  Page<Post> searchPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable);
+  Page<PostData> searchPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable);
 
-  SearchPage<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit, Pageable pageable);
+  SearchPage<PostData> searchWithin(GeoPoint geoPoint, Double distance, String unit, Pageable pageable);
 }

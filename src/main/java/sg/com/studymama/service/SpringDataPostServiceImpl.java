@@ -18,7 +18,7 @@ import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Service;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 import sg.com.studymama.repository.PostElasticSearchRepository;
 
 import java.util.List;
@@ -37,12 +37,12 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
   private  ElasticsearchOperations operations;
 
 
-  public Post createPost(Post Post) {
+  public PostData createPost(PostData Post) {
 
     return postRepository.save(Post);
   }
 
-  public Optional<Post> getPost(String id) {
+  public Optional<PostData> getPost(String id) {
     return postRepository.findById(id);
   }
 
@@ -51,51 +51,51 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
   }
 
   @Override
-  public Iterable<Post> insertBulkPost(Page<Post>Posts) {
+  public Iterable<PostData> insertBulkPost(Page<PostData>Posts) {
     return postRepository.saveAll(Posts);
   }
 
   @Override
-  public Page<Post>getPostsByCategory(String category,Pageable pageable) {
+  public Page<PostData>getPostsByCategory(String category,Pageable pageable) {
     return postRepository.findAllByCategory(category,pageable);
   }
 
   @Override
-  public Page<Post> getAllPost(Pageable pageable) {
+  public Page<PostData> getAllPost(Pageable pageable) {
     return postRepository.findAll(pageable);
   }
 
   @Override
-  public Page<Post>searchPostBySimilarTitle(String title,Pageable pageable) {
+  public Page<PostData>searchPostBySimilarTitle(String title,Pageable pageable) {
     return postRepository.findPostBySimilarTitle(title,pageable);
   }
 
   @Override
-  public Page<Post>searchPostBySimilarCategory(String category,Pageable pageable) {
+  public Page<PostData>searchPostBySimilarCategory(String category,Pageable pageable) {
     return postRepository.findPostBySimilarCategory(category,pageable);
   }
 
   @Override
-  public Page<Post>searchPostByCategory(String category,Pageable pageable) {
+  public Page<PostData>searchPostByCategory(String category,Pageable pageable) {
     return postRepository.findAllByCategory(category,pageable);
   }
 
   @Override
-  public Page<Post>searchPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable) {
+  public Page<PostData>searchPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable) {
     return postRepository.findPostsByByKeywordInTitleDescriptionCategory(keyword,pageable);
   }
 
-  public Iterable<Post> insertBulk(Page<Post>Posts) {
+  public Iterable<PostData> insertBulk(Page<PostData>Posts) {
     return postRepository.saveAll(Posts);
   }
 
-  public Page<Post> getPostsByName(String name,Pageable pageable) {
+  public Page<PostData> getPostsByName(String name,Pageable pageable) {
     return postRepository.findAllByCategory(name,pageable);
   }
 
 
 
-  public SearchPage<Post> searchWithin(GeoPoint geoPoint, Double distance, String unit, Pageable pageable) {
+  public SearchPage<PostData> searchWithin(GeoPoint geoPoint, Double distance, String unit, Pageable pageable) {
 
     GeoDistanceQueryBuilder builder = QueryBuilders.geoDistanceQuery("location").point(geoPoint.getLat(), geoPoint.getLon())
             .distance(distance, DistanceUnit.METERS);
@@ -109,11 +109,11 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
 
 
 
-    return     SearchHitSupport.searchPageFor(operations.search(searchQuery, Post.class),pageable);
+    return     SearchHitSupport.searchPageFor(operations.search(searchQuery, PostData.class),pageable);
   }
 
   @Override
-  public SearchPage<Post> searchPostByName(String title, Pageable pageable){
+  public SearchPage<PostData> searchPostByName(String title, Pageable pageable){
     Criteria criteria = new Criteria("title").contains(title);
 
     Query searchQuery = new CriteriaQuery(criteria,pageable);
@@ -122,15 +122,15 @@ public class SpringDataPostServiceImpl implements SpringDataPostService {
 
     return  SearchHitSupport.searchPageFor(operations
             .search(searchQuery,
-                    Post.class),pageable);
+                    PostData.class),pageable);
   }
 
-  private List<Post>toResultData(List<SearchHit<Post>> searchHits) {
+  private List<PostData>toResultData(List<SearchHit<PostData>> searchHits) {
     System.out.println("searchHits.size() "+searchHits.size());
 
     return searchHits.stream()
             .map(searchHit -> {
-              Post post = searchHit.getContent();
+              PostData post = searchHit.getContent();
               return post;
             }).collect(Collectors.toList());
   }

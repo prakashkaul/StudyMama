@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -33,24 +33,24 @@ public class ElasticsearchRestTemplateServiceImpl implements ElasticsearchRestTe
   private  ElasticsearchRestTemplate elasticsearchRestTemplate;
   @PostConstruct
   public void init() {
-    IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(Post.class);
+    IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(PostData.class);
     indexOperations.putMapping(indexOperations.createMapping());
     indexOperations.refresh();
   }
 
 
-  public Post getPostById(String id) {
+  public PostData getPostById(String id) {
 
-    SearchHits<Post> searchHits = elasticsearchRestTemplate
-        .search(new CriteriaQuery(new Criteria("id").is(id)), Post.class);
+    SearchHits<PostData> searchHits = elasticsearchRestTemplate
+        .search(new CriteriaQuery(new Criteria("id").is(id)), PostData.class);
     return searchHits.get().map(SearchHit::getContent).findFirst().orElse(null);
   }
 
-  public List<Post> getPostsByName(String name) {
+  public List<PostData> getPostsByName(String name) {
     Query query = new NativeSearchQueryBuilder()
         .withQuery(QueryBuilders.matchQuery("name", name))
         .build();
-    SearchHits<Post> searchHits = elasticsearchRestTemplate.search(query, Post.class);
+    SearchHits<PostData> searchHits = elasticsearchRestTemplate.search(query, PostData.class);
 
     return searchHits.get().map(SearchHit::getContent).collect(Collectors.toList());
   }
@@ -60,7 +60,7 @@ public class ElasticsearchRestTemplateServiceImpl implements ElasticsearchRestTe
         .addAggregation(new TermsAggregationBuilder(term).field(term).size(10))
         .build();
 
-    SearchHits<Post> searchHits = elasticsearchRestTemplate.search(query, Post.class);
+    SearchHits<PostData> searchHits = elasticsearchRestTemplate.search(query, PostData.class);
     Map<String, Long> result = new HashMap<>();
     searchHits.getAggregations().asList().forEach(aggregation -> {
       ((Terms) aggregation).getBuckets()

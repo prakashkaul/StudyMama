@@ -5,26 +5,26 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 
 import java.util.List;
 
-public interface PostElasticSearchRepository extends ElasticsearchRepository<Post, String> {
+public interface PostElasticSearchRepository extends ElasticsearchRepository<PostData, String> {
 
-  Page<Post> findAllByCategory(String category,Pageable pageable);
+  Page<PostData> findAllByCategory(String category,Pageable pageable);
 
   @Query("{\"match_all\":{}}")
-  Page<Post> findAll(Pageable pageable);
+  Page<PostData> findAll(Pageable pageable);
 
   @Query("{\"match_bool_prefix\":{\"title\":\"?0\"}}")
-  Page<Post> findPostBySimilarTitle(String title,Pageable pageable);
+  Page<PostData> findPostBySimilarTitle(String title,Pageable pageable);
 
   @Query("{\"match_bool_prefix\":{\"category\":\"?0\"}}")
-  Page<Post> findPostBySimilarCategory(String category,Pageable pageable);
+  Page<PostData> findPostBySimilarCategory(String category,Pageable pageable);
 
 
   @Query("{\"multi_match\":{\"query\":\"?0\", \"type\":\"phrase_prefix\",\n\"fields\": [ \"title\", \"description\",\"category\"] }}")
-  Page<Post> findPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable);
+  Page<PostData> findPostsByByKeywordInTitleDescriptionCategory(String keyword,Pageable pageable);
 
 
 }

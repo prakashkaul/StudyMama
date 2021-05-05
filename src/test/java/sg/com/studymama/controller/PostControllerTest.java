@@ -29,7 +29,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import sg.com.studymama.Util;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.service.SpringDataPostService;
 import sg.com.studymama.service.SpringDataPostServiceImpl;
@@ -59,7 +59,7 @@ public class PostControllerTest {
     @Mock
     private SpringDataPostService springDataPostService;
 
-    private  List<Post> posts;
+    private  List<PostData> posts;
 
     @Before
     public void setUp() throws IOException {
@@ -68,7 +68,7 @@ public class PostControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         //read json file and convert to customer object
-        posts = objectMapper.readValue(new File("sample_data.json"), new TypeReference<List<Post>>(){});
+        posts = objectMapper.readValue(new File("sample_data.json"), new TypeReference<List<PostData>>(){});
 
 
         //print customer details
@@ -81,7 +81,7 @@ public class PostControllerTest {
         String uri = "/postService/allPost";
         Pageable paging = PageRequest.of(0, 3);
 
-        final Page<Post> page = new PageImpl<>(posts, paging, posts.size());
+        final Page<PostData> page = new PageImpl<>(posts, paging, posts.size());
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("currentPage", "0");
         map.add("pageSize", "3");

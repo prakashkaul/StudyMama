@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.com.studymama.DTO.PostsDTO;
+import sg.com.studymama.Entity.Post;
+import sg.com.studymama.Entity.PostsEntity;
+import sg.com.studymama.model.PostData;
+import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.service.PostService;
+import sg.com.studymama.service.RecommendationService;
 import sg.com.studymama.service.SpringDataPostService;
 
 @RestController
@@ -30,10 +35,15 @@ public class PostsController {
 	
 	@Autowired
 	private PostService postService;
-	@Autowired
-	private  SpringDataPostService springDataPostService;
 
+
+	@Autowired
+	private SpringDataPostService springDataPostService;
 	
+	@Autowired
+	private RecommendationRepository recommendService;
+
+
 	@GetMapping("post")
 	public String postList() {
 		return "/PostList";//overall post page include some basic info
@@ -67,13 +77,13 @@ public class PostsController {
 	public String postFormSubmit(@RequestBody PostsDTO postDTO, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		
-		
 		try {
-			postService.save(postDTO);
-			//springDataPostService.createPost(postDTO);
+			PostsEntity post=postService.save(postDTO);
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(postDTO.toString());
+			springDataPostService.createPost(new PostData(post));
+			//recommendService.save(new Post(post));//neo4j?
 			return "redirect:/post";
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
