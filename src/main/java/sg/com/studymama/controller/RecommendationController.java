@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sg.com.studymama.Entity.Post;
 import sg.com.studymama.Entity.User;
 import sg.com.studymama.service.RecommendationService;
 
@@ -18,7 +19,7 @@ public class RecommendationController {
 	private RecommendationService service;
 	
 	@GetMapping
-	public Collection<User> getAll(){
+	public Collection<Post> getAll(){
 		return service.getAll();
 	}
 	

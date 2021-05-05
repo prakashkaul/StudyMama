@@ -26,8 +26,8 @@ public class User {
 	
 	private String address;
 	
-//	@Relationship(type="POST", direction=Relationship.INCOMING)
-//	private List<Post> posts;
+	@Relationship(type="POST", direction=Relationship.INCOMING)
+	private List<Post> posts;
 	
 	 public User() {
 

@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.Entity.Post;
 import sg.com.studymama.Entity.User;
 import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.service.RecommendationService;
@@ -16,9 +17,15 @@ public class RecommendationServiceImpl implements RecommendationService {
 	private RecommendationRepository repository;
 
 	@Override
-	public Collection<User> getAll() {
+	public Collection<Post> getAll() {
 		// TODO Auto-generated method stub
 		return repository.getAll();
+	}
+
+	@Override
+	public Post save(Post post) {
+		// TODO Auto-generated method stub
+		return repository.save(post);
 	}
 
 }

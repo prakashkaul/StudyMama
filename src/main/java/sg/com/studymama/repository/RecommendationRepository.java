@@ -10,11 +10,10 @@ import org.springframework.stereotype.Repository;
 import sg.com.studymama.Entity.Post;
 import sg.com.studymama.Entity.User;
 //@Repository
-public interface RecommendationRepository extends Neo4jRepository<User, Long>{
+public interface RecommendationRepository extends Neo4jRepository<Post, Long>{
 
-	//@Query("MATCH (p:Post) RETURN p ORDER BY p.creationDate DESC LIMIT 5")
-	@Query("MATCH (u:User) RETURN u")
-	public Collection<User> getAll();
+	@Query("MATCH (p:Post) RETURN p ORDER BY p.creationDate DESC LIMIT 5")
+	public Collection<Post> getAll();
 
-	//public void save(Post post);
+	Post save(Post post);
 }
