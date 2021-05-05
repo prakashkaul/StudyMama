@@ -3,6 +3,8 @@ package sg.com.studymama.Entity;
 import java.sql.Timestamp;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
@@ -25,8 +27,7 @@ public class Post {
 	private String category;
 	
 	private String contact;
-	
-	private GeoPoint location;
+
 	
 	private String creationDate;
 	
@@ -36,7 +37,6 @@ public class Post {
           this.title = post.getTitle();
           this.contact = post.getContact();
           this.description = post.getDescription();
-          this.location = new GeoPoint(post.getGpsX(),post.getGpsY());
           this.creationDate = String.valueOf(post.getCreationDate());
           this.category = post.getCategory();		
 	}
@@ -85,13 +85,6 @@ public class Post {
 		this.contact = contact;
 	}
 
-	public GeoPoint getLocation() {
-		return location;
-	}
-
-	public void setLocation(GeoPoint location) {
-		this.location = location;
-	}
 
 	public String getCreationDate() {
 		return creationDate;

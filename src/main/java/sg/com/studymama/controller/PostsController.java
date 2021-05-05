@@ -78,14 +78,15 @@ public class PostsController {
 			RedirectAttributes redirectAttributes, Model model) {
 		
 		try {
-			postService.save(postDTO);
+			PostsEntity post=postService.save(postDTO);
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(postDTO.toString());
-			springDataPostService.createPost(new PostData(postService.save(postDTO)));
-			recommendService.save(new Post(postService.save(postDTO)));//neo4j?
+			springDataPostService.createPost(new PostData(post));
+			recommendService.save(new Post(post));//neo4j?
 			return "redirect:/post";
 		} catch (Exception e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
 			redirectAttributes.addAttribute("notificationType", "error");
 			redirectAttributes.addAttribute("notificationMessage", e.getMessage());
