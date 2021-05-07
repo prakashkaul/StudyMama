@@ -6,6 +6,10 @@
 #EXPOSE 8080  
 #ENTRYPOINT ["java","-jar","app.jar"]
 
+# ADD LOGSTASH
+FROM docker.elastic.co/logstash/logstash:7.6.0
+ADD ./conf/logstash.conf ./conf/logstash.conf
+
 # USE THIS AWS ECS
 #
 # Build stage
