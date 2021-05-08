@@ -8,9 +8,7 @@
 
 # ADD LOGSTASH
 FROM docker.elastic.co/logstash/logstash:7.6.0
-RUN rm -f /usr/share/logstash/pipeline/logstash.conf
-ADD /logstash/conf/logstash.conf /usr/share/logstash/pipeline/logstash.conf
-ADD /logstash/conf/logstash.conf /usr/share/logstash/config/logstash.conf
+ADD .logstash/conf/logstash.conf ./conf/logstash.conf
 
 # USE THIS AWS ECS
 #
