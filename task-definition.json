@@ -379,7 +379,20 @@
             "command": ["logstash","-f","/conf/logstash.conf"],
             "linuxParameters": null,
             "cpu": 512,
-            "environment": null,
+            "environment": [
+                {
+                    "name": "ELASTICSEARCH_HOSTS",
+                    "value": "http://127.0.0.1:9200/"
+                },
+                {
+                    "name": "LS_JAVA_OPTS",
+                    "value": "-Xms1g -Xmx2g"
+                },
+                {
+                    "name": "SERVER_NAME",
+                    "value": "logstash"
+                }
+            ],
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
