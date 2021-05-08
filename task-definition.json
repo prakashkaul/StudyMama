@@ -390,7 +390,7 @@
             "memoryReservation": 1024,
             "volumesFrom": null,
             "stopTimeout": null,
-            "image": "docker.elastic.co/logstash/logstash:7.6.0",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:a2b2e42c0192f401473d928e65c3527ba2168ef9",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
