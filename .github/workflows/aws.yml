@@ -77,8 +77,21 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        echo $PWD
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
+    - name: Build, tag, and push logstash image to Amazon ECR
+      id: build-logstash-image
+      env:
+        ECR_REGISTRY: ${{ steps.studymama.outputs.registry }}
+        ECR_REPOSITORY: studymama-logstash-repo
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./logstash/Dockerfile
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
@@ -88,6 +101,14 @@ jobs:
       with:
         task-definition: task-definition.json
         container-name: studymama
+        image: ${{ steps.build-image.outputs.image }}
+        
+    - name: Fill in the new logstash image ID in the Amazon ECS task definition
+      id: logstash-task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: logstash
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
