@@ -18,10 +18,6 @@ public class User {
 	@Id@GeneratedValue
 	Long id;
 	
-//	private String firstName;
-//	
-//	private String lastName;
-	
 	private String contact;
 	
 	private String address;
@@ -37,23 +33,31 @@ public class User {
 		return id;
 	}
 
-//	public String getFirstName() {
-//		return firstName;
-//	}
-//
-//	public String getLastName() {
-//		return lastName;
-//	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getContact() {
 		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-//	public List<Post> getPosts() {
-//		return posts;
-//	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 }
