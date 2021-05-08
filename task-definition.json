@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:4631fb0e99c6311bd22d47098b9143b58433455d",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:d904112a9f997f5d4105acd5812d88d9d7ddb0ef",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -379,7 +379,12 @@
             "command": null,
             "linuxParameters": null,
             "cpu": 512,
-            "environment": null,
+            "environment": [
+                {
+                    "name": "ELASTICSEARCH_HOSTS",
+                    "value": "http://127.0.0.1:9200/"
+                }
+            ],
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
