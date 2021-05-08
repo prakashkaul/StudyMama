@@ -377,7 +377,7 @@
                 }
             ],
             "command": [
-                "logstash -f /conf/logstash.conf"
+                "logstash","-f","/conf/logstash.conf"
             ],
             "linuxParameters": null,
             "cpu": 512,
