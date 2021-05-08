@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:eac95a662a94eda69b8895fa2584300bde391db3",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:d18fc600abca6d0df87082a7006a5dcadeb1d9c5",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -376,11 +376,7 @@
                     "containerPort": 5044
                 }
             ],
-            "command": [
-                "logstash",
-                "-f",
-                "./conf/logstash.conf"
-            ],
+            "command": [],
             "linuxParameters": null,
             "cpu": 512,
             "environment": [
