@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:d18fc600abca6d0df87082a7006a5dcadeb1d9c5",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:58915dbc8900f0559bf6626ec4c2aa53db1e3a5a",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -368,7 +368,11 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             },
-            "entryPoint": null,
+            "entryPoint": [
+                "logstash",
+                "-f",
+                "./conf/logstash.conf"
+            ],
             "portMappings": [
                 {
                     "hostPort": 5044,
@@ -376,15 +380,10 @@
                     "containerPort": 5044
                 }
             ],
-            "command": [],
+            "command": null,
             "linuxParameters": null,
             "cpu": 512,
-            "environment": [
-                {
-                    "name": "ELASTICSEARCH_HOSTS",
-                    "value": "http://127.0.0.1:9200/"
-                }
-            ],
+            "environment": null,
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
