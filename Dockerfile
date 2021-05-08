@@ -12,7 +12,7 @@
 # ADD LOGSTASH
 FROM docker.elastic.co/logstash/logstash:7.6.0
 RUN echo "$PWD"
-ADD /logstash/conf/logstash.conf /usr/share/logstash/conf/logstash.conf
+COPY /logstash/conf/logstash.conf /usr/share/logstash/conf/logstash.conf
 
 # Build stage
 #
