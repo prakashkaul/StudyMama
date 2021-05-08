@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:074d3488b3994ca0fd45ecc0f48300987d2d1322",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:fe2e58767d35a62366d935ea863b3c8ef57757ad",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -368,7 +368,7 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             },
-            "entryPoint": [],
+            "entryPoint": null,
             "portMappings": [
                 {
                     "hostPort": 5044,
@@ -377,9 +377,7 @@
                 }
             ],
             "command": [
-                "/bin/logstash",
-                "-f",
-                "/conf/logstash.conf"
+                "logstash -f ./conf/logstash.conf"
             ],
             "linuxParameters": null,
             "cpu": 512,
@@ -388,7 +386,7 @@
             "ulimits": null,
             "dnsServers": null,
             "mountPoints": null,
-            "workingDirectory": "/usr/share/logstash/",
+            "workingDirectory": null,
             "secrets": null,
             "dockerSecurityOptions": null,
             "memoryReservation": 1024,
