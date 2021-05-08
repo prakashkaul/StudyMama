@@ -376,7 +376,7 @@
                     "containerPort": 5044
                 }
             ],
-            "command": ["logstash","-f","./conf/logstash.conf"],
+            "command": ["logstash","-f","/conf/logstash.conf"],
             "linuxParameters": null,
             "cpu": 512,
             "environment": null,
