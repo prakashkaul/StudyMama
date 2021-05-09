@@ -34,6 +34,9 @@ public class CommentEntity implements Serializable {
    
     @Column(name = "COMMENT_DATE")
     private Timestamp commentDate;
+    
+    @Column(name = "ACCOUNT_NAME")
+    private String accountName;
 
 	public Integer getCommentId() {
 		return commentId;
@@ -75,4 +78,11 @@ public class CommentEntity implements Serializable {
 		this.commentDate = commentDate;
 	}
 
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
 }

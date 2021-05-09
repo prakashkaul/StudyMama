@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sg.com.studymama.Entity.Post;
-import sg.com.studymama.Entity.User;
+import sg.com.studymama.Entity.UserData;
 import sg.com.studymama.service.RecommendationService;
 
 @RestController

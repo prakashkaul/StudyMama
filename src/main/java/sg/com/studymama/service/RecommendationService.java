@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 import sg.com.studymama.Entity.Post;
-import sg.com.studymama.Entity.User;
+import sg.com.studymama.Entity.UserData;
 @Service
 public interface RecommendationService {
 

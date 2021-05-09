@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.com.studymama.Entity.Post;
-import sg.com.studymama.Entity.User;
+import sg.com.studymama.Entity.UserData;
 import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.service.RecommendationService;
 
