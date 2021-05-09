@@ -2,7 +2,6 @@ package sg.com.studymama.Entity;
 
 import java.util.List;
 
-import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -11,23 +10,33 @@ import org.springframework.data.neo4j.core.schema.Id;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
+import sg.com.studymama.model.DAOUser;
+
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
-public class User {
+public class UserData {
 	
 	@Id@GeneratedValue
 	Long id;
 	
-	private String contact;
+	private String username;
 	
-	private String address;
+	private String role;
 	
 	@Relationship(type="POST", direction=Relationship.INCOMING)
 	private List<Post> posts;
 	
-	 public User() {
+	 public UserData() {
 
 	    }
+	 
+	public UserData(DAOUser user) {
+		// TODO Auto-generated constructor stub
+	    this.id = user.getUser_profile_id();
+	    this.username = user.getUsername();
+	    this.role = user.getRole();		
+		}
+
 
 	public Long getId() {
 		return id;
@@ -37,20 +46,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getContact() {
-		return contact;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getRole() {
+		return role;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public List<Post> getPosts() {
