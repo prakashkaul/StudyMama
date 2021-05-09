@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:9a8fe95e3e8099fa14e33a7ac46a85ca048bbd71",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:c34652a8ade38d1853f72672337c2cfee915de76",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -409,7 +409,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:9a8fe95e3e8099fa14e33a7ac46a85ca048bbd71",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:c34652a8ade38d1853f72672337c2cfee915de76",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -443,31 +443,33 @@
             "name": "logstash"
         },
         {
-            "name": "neo4j",
-            "image": "neo4j:4.0.1",
-            "memoryReservation": "1024",
-            "cpu": "512",
-            "resourceRequirements": null,
-            "essential": true,
+            "dnsSearchDomains": null,
+            "environmentFiles": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
             "portMappings": [
                 {
-                    "containerPort": "7474",
-                    "protocol": "tcp"
+                    "hostPort": 7474,
+                    "protocol": "tcp",
+                    "containerPort": 7474
                 },
                 {
-                    "containerPort": "7687",
-                    "protocol": "tcp"
+                    "hostPort": 7687,
+                    "protocol": "tcp",
+                    "containerPort": 7687
                 }
             ],
+            "command": null,
+            "linuxParameters": null,
+            "cpu": 512,
             "environment": [
-                {
-                    "name": "NEO4J_AUTH",
-                    "value": "none"
-                },
-                {
-                    "name": "NEO4J_dbms_mode",
-                    "value": "core"
-                },
                 {
                     "name": "NEO4J_ACCEPT_LICENSE_AGREEMENT",
                     "value": "yes"
@@ -485,24 +487,24 @@
                     "value": "true"
                 },
                 {
-                    "name": "NEO4J_dbms_security_procedures_unrestricted",
-                    "value": "apoc.*"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_http_listen__address",
-                    "value": "7474"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_https_listen__address",
-                    "value": "6477"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_bolt_listen__address",
-                    "value": "7687"
+                    "name": "NEO4J_AUTH",
+                    "value": "none"
                 },
                 {
                     "name": "NEO4J_dbms_connector_bolt_advertised__address",
-                    "value": "7687"
+                    "value": "127.0.0.1:7687"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_bolt_listen__address",
+                    "value": "127.0.0.1:7687"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_http_listen__address",
+                    "value": "127.0.0.1:7474"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_https_listen__address",
+                    "value": "127.0.0.1:6477"
                 },
                 {
                     "name": "NEO4J_dbms_memory_heap_initial__size",
@@ -515,33 +517,53 @@
                 {
                     "name": "NEO4J_dbms_memory_pagecache_size",
                     "value": "256m"
+                },
+                {
+                    "name": "NEO4J_dbms_mode",
+                    "value": "core"
+                },
+                {
+                    "name": "NEO4J_dbms_security_procedures_unrestricted",
+                    "value": "apoc.*"
                 }
             ],
-            "environmentFiles": [],
-            "secrets": null,
-            "mountPoints": null,
-            "volumesFrom": null,
-            "hostname": null,
-            "user": null,
-            "workingDirectory": null,
-            "extraHosts": null,
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-group": "/ecs/studymama-task-definition",
-                    "awslogs-region": "ap-southeast-1",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            },
+            "resourceRequirements": null,
             "ulimits": null,
-            "dockerLabels": null,
+            "dnsServers": null,
+            "mountPoints": null,
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memoryReservation": 1024,
+            "volumesFrom": null,
+            "stopTimeout": null,
+            "image": "neo4j:4.0.1",
+            "startTimeout": null,
+            "firelensConfiguration": null,
             "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
             "healthCheck": {
+                "retries": 3,
                 "command": [
                     "CMD-SHELL",
                     "curl -f http://127.0.0.1:7474 || exit 1"
-                ]
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": "300"
             },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "neo4j",
             "repositoryCredentials": {
                 "credentialsParameter": ""
             }
