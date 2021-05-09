@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:5c72061443aa9478520dc8d0d6b1b7559e8f7004",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:55c9bb7757f6fcc819d5e281689d7178770bd9c7",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -409,7 +409,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:5c72061443aa9478520dc8d0d6b1b7559e8f7004",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:55c9bb7757f6fcc819d5e281689d7178770bd9c7",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -499,6 +499,10 @@
                     "value": "7687"
                 },
                 {
+                    "name": "NEO4J_dbms_connector_default_advertised_address",
+                    "value": "studymama-load-balancer-795957589.ap-southeast-1.elb.amazonaws.com"
+                },
+                {
                     "name": "NEO4J_dbms_connector_http_listen__address",
                     "value": "7474"
                 },
@@ -544,12 +548,16 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": {
+                "retries": 3,
                 "command": [
                     "CMD-SHELL",
                     "curl -f http://127.0.0.1:9200/_cat/health || exit 1"
-                ]
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": null
             },
-            "essential": false,
+            "essential": true,
             "links": null,
             "hostname": null,
             "extraHosts": null,
