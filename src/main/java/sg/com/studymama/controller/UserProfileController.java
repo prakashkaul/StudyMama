@@ -35,7 +35,7 @@ public class UserProfileController {
 		return ResponseEntity.ok(userProfileService.update(userProfile, user.getUser_profile_id()));
 	}
 	
-	@RequestMapping(value = "/getProfile", method = RequestMethod.GET)
+	@RequestMapping(value = "/getProfile", method = RequestMethod.POST)
 	public ResponseEntity<?> getProfile(@RequestBody UserDTO userDTO) throws Exception {
 		LOG.info("Get profile: " + userDTO.toString());
 		DAOUser user = userDetailsService.find(userDTO.getUsername());
