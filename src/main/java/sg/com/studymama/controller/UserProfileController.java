@@ -15,6 +15,8 @@ import sg.com.studymama.model.DAOUser;
 import sg.com.studymama.service.CustomUserDetailsService;
 import sg.com.studymama.service.UserProfileService;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 public class UserProfileController {
 	
