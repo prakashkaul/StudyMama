@@ -35,6 +35,7 @@ public class CommentServiceImpl implements CommentService {
 		entity.setCommentId(commentDTO.getCommentId());
 		entity.setDescription(commentDTO.getDescription());
 		entity.setPostId(commentDTO.getPostId());
+		entity.setAccountName(commentDTO.getAccountName());
 		
 		entity.setCommentDate(Timestamp.valueOf(LocalDateTime.now()));
 		

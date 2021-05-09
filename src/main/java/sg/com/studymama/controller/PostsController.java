@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.com.studymama.DTO.PostsDTO;
+import sg.com.studymama.Entity.Post;
 import sg.com.studymama.Entity.PostsEntity;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
+import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.service.PostService;
+import sg.com.studymama.service.RecommendationService;
 import sg.com.studymama.service.SpringDataPostService;
 
 @RestController
@@ -36,6 +39,9 @@ public class PostsController {
 
 	@Autowired
 	private SpringDataPostService springDataPostService;
+	
+	@Autowired
+	private RecommendationRepository recommendService;
 
 
 	@GetMapping("post")
@@ -76,9 +82,11 @@ public class PostsController {
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(postDTO.toString());
-			springDataPostService.createPost(new Post(post));
+			springDataPostService.createPost(new PostData(post));
+			recommendService.save(new Post(post));//neo4j?
 			return "redirect:/post";
 		} catch (Exception e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
 			redirectAttributes.addAttribute("notificationType", "error");
 			redirectAttributes.addAttribute("notificationMessage", e.getMessage());

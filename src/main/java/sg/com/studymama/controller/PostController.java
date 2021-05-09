@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sg.com.studymama.model.Post;
+import sg.com.studymama.model.PostData;
 import sg.com.studymama.service.ElasticsearchRestTemplateServiceImpl;
 import sg.com.studymama.service.SpringDataPostService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +28,7 @@ public class PostController {
 
     @Operation(summary = "Create a post")
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public ResponseEntity<?> post(@RequestBody Post post) throws Exception {
+    public ResponseEntity<?> post(@RequestBody PostData post) throws Exception {
         LOG.info("Adding Posts to Elasticsearch " + post.toString());
 
         return ResponseEntity.ok(springDataPostService.createPost(post));

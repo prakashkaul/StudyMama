@@ -12,7 +12,8 @@ CREATE TABLE `post` (
   `contact` varchar(15) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `creation_date` datetime DEFAULT NULL,
-  `last_updated_date` datetime DEFAULT NULL
+  `last_updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -57,7 +58,8 @@ CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(12) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `description` varchar(200) default NULL
+  `description` varchar(200) default NULL,
+ `comment_date` datetime DEFAULT NULL,
   PRIMARY KEY (`comment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -79,7 +81,14 @@ CREATE TABLE `comment_aud` (
   `account_id` int(12) NOT NULL,
   `post_id` int(11) NOT NULL,
   `description` varchar(200) default NULL,
+  `comment_date` datetime DEFAULT NULL,
   `REV` int(11) NOT NULL,
   `REVTYPE` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`AUDIT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE (Peter:User {contact: '90165442', address: 'west'}) CREATE (Sam:User {contact: '90165442', address: 'east'}) CREATE (Ryan:User {contact: '90165442', address: 'central'})
+CREATE (Inception:Post {title: 'math', creationDate: '2021-01-01 00:00:00'}) CREATE (DarkKnight:Post {title: 'chinese', creationDate: '2021-02-01 00:00:00'})
+
+
+
