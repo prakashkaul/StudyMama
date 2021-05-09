@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sg.com.studymama.DTO.RateDTO;
 import sg.com.studymama.service.RateService;
 
-
+@CrossOrigin(origins = "*")
 @Controller
 public class RateController {
 	
