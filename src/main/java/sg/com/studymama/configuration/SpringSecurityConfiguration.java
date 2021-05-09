@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import sg.com.studymama.component.CustomJwtAuthenticationFilter;
 import sg.com.studymama.component.JwtAuthenticationEntryPoint;
@@ -53,9 +54,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
-				.antMatchers("/hellouser", "/updateProfile", "/profilePicture").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/authenticate", "/register", "/search", "/postDelete","/post","/post/*","/postData","/postFormSubmit","/fakecategorysearch"
-						,"/commentSubmit","/commentDelete/*","/rateSubmit","/Recommendation",
+				.antMatchers("/hellouser", "/updateProfile", "/getProfile", "/categoryList", "/profilePicture").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/authenticate", "/register", "/search", "/postDelete","/post","/post/*","/postData","/postFormSubmit","/fakecategorysearch",
+						"/commentSubmit","/commentDelete/*","/rateSubmit","/Recommendation","/greeting",
 						"/postService/*", "/actuator/health",
 						"/v2/api-docs", //for swagger stuff
                         "/configuration/ui",
@@ -71,6 +72,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// store user's state.
 
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.cors().configurationSource(request->new CorsConfiguration().applyPermitDefaultValues());
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

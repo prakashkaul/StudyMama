@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import sg.com.studymama.DTO.CommentDTO;
 import sg.com.studymama.service.CommentService;
 
+@CrossOrigin(origins = "*")
 @Controller
 public class CommentController {
 	private static final Logger LOG = LoggerFactory.getLogger(CommentController.class);

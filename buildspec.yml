@@ -15,5 +15,5 @@ phases:
 artifacts:
   files:
     # - target/studymama-0.0.1-SNAPSHOT.jar
-    - appspec.yml
+    # - appspec.yml
   discard-paths: yes

@@ -24,7 +24,7 @@
             ],
             "command": null,
             "linuxParameters": null,
-            "cpu": 0,
+            "cpu": 512,
             "environment": [
                 {
                     "name": "MYSQL_DATABASE",
@@ -109,7 +109,7 @@
             ],
             "command": null,
             "linuxParameters": null,
-            "cpu": 0,
+            "cpu": 512,
             "environment": [
                 {
                     "name": "discovery.type",
@@ -132,7 +132,7 @@
             "secrets": null,
             "dockerSecurityOptions": null,
             "memory": null,
-            "memoryReservation": 500,
+            "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
             "image": "docker.elastic.co/elasticsearch/elasticsearch:7.6.0",
@@ -185,7 +185,7 @@
             ],
             "command": null,
             "linuxParameters": null,
-            "cpu": 0,
+            "cpu": 512,
             "environment": [
                 {
                     "name": "ELASTICSEARCH_HOSTS",
@@ -208,7 +208,7 @@
             "secrets": null,
             "dockerSecurityOptions": null,
             "memory": null,
-            "memoryReservation": 500,
+            "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
             "image": "docker.elastic.co/kibana/kibana:7.6.0",
@@ -268,10 +268,18 @@
                     "containerPort": 8080
                 }
             ],
-            "command": [],
+            "command": null,
             "linuxParameters": null,
-            "cpu": 0,
+            "cpu": 512,
             "environment": [
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
+                    "value": "None"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
+                    "value": "1s"
+                },
                 {
                     "name": "SPRING_DATASOURCE_PASSWORD",
                     "value": "studymama@123"
@@ -281,28 +289,20 @@
                     "value": "jdbc:mysql://127.0.01:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
                 },
                 {
-                    "name": "SPRING_DATASOURCE_USERNAME",
-                    "value": "studymama"
+                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
+                    "value": "1m"
                 },
                 {
-                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
-                    "value": "1s"
+                    "name": "SPRING_DATASOURCE_USERNAME",
+                    "value": "studymama"
                 },
                 {
                     "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
                     "value": "None"
                 },
                 {
-                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
-                    "value": "1m"
-                },
-                {
                     "name": "SPRING_ELASTICSEARCH_REST_URIS",
                     "value": "http://127.0.0.1:9200"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
-                    "value": "None"
                 }
             ],
             "resourceRequirements": null,
@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:c0286a77fe5625a20cbad2f8af5486161245d66f",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:55ad1f211e7c8fae698b8aa1666605688aa47525",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -356,6 +356,160 @@
             "systemControls": null,
             "privileged": null,
             "name": "studymama"
+        },
+        {
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
+            "portMappings": [
+                {
+                    "hostPort": 5044,
+                    "protocol": "tcp",
+                    "containerPort": 5044
+                }
+            ],
+            "command": [
+                "logstash",
+                "-f",
+                "/conf/logstash.conf"
+            ],
+            "linuxParameters": null,
+            "cpu": 512,
+            "environment": [
+                {
+                    "name": "ELASTICSEARCH_HOSTS",
+                    "value": "http://127.0.0.1:9200/"
+                },
+                {
+                    "name": "LS_JAVA_OPTS",
+                    "value": "-Xms1g -Xmx2g"
+                },
+                {
+                    "name": "SERVER_NAME",
+                    "value": "logstash"
+                }
+            ],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": 1024,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:55ad1f211e7c8fae698b8aa1666605688aa47525",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": [
+                {
+                    "containerName": "elasticsearch",
+                    "condition": "HEALTHY"
+                }
+            ],
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 10,
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://127.0.0.1:9200/_cat/health || exit 1"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": 300
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "logstash"
+        },
+        {
+            "dnsSearchDomains": null,
+            "environmentFiles": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": null,
+            "portMappings": [
+                {
+                    "hostPort": 7474,
+                    "protocol": "tcp",
+                    "containerPort": 7474
+                },
+                {
+                    "hostPort": 7687,
+                    "protocol": "tcp",
+                    "containerPort": 7687
+                }
+            ],
+            "command": null,
+            "linuxParameters": null,
+            "cpu": 512,
+            "environment": null,
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": null,
+            "workingDirectory": null,
+            "secrets": null,
+            "dockerSecurityOptions": null,
+            "memoryReservation": 1024,
+            "volumesFrom": null,
+            "stopTimeout": null,
+            "image": "neo4j:4.0.1",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                    "CMD-SHELL",
+                    "wget http://127.0.0.1:7474/browser -O -"
+                ],
+                "timeout": 5,
+                "interval": 30,
+                "startPeriod": 300
+            },
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "neo4j",
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            }
         }
     ],
     "memory": "8192",

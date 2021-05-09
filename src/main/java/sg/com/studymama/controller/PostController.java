@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import sg.com.studymama.model.PostData;
 import sg.com.studymama.service.ElasticsearchRestTemplateServiceImpl;
 import sg.com.studymama.service.SpringDataPostService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/postService")
 public class PostController {

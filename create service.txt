@@ -1,0 +1,1 @@
+aws ecs create-service --cluster studymama-cluster --service-name studymama-service-lb --cli-input-json file://service-definition.json
