@@ -543,7 +543,12 @@
             "dependsOn": null,
             "disableNetworking": null,
             "interactive": null,
-            "healthCheck": null,
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://127.0.0.1:9200/_cat/health || exit 1"
+                ]
+            },
             "essential": false,
             "links": null,
             "hostname": null,
