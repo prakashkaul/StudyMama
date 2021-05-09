@@ -15,11 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.DTO.UserDTO;
 import sg.com.studymama.exceptions.UserAlreadyExistAuthenticationException;
 import sg.com.studymama.exceptions.UserRoleException;
 import sg.com.studymama.model.DAOUser;
 import sg.com.studymama.model.DAOUserProfile;
-import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.repository.UserProfileRepository;
 import sg.com.studymama.repository.UserRepository;
 

@@ -29,8 +29,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import sg.com.studymama.Util;
+import sg.com.studymama.DTO.UserDTO;
 import sg.com.studymama.model.PostData;
-import sg.com.studymama.model.UserDTO;
 import sg.com.studymama.service.SpringDataPostService;
 import sg.com.studymama.service.SpringDataPostServiceImpl;
 
