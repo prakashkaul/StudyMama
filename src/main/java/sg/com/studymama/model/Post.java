@@ -5,9 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
+import sg.com.studymama.DTO.PostsDTO;
+import sg.com.studymama.Entity.PostsEntity;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Document(indexName = "post")
 public class Post implements Serializable {
@@ -25,31 +29,62 @@ public class Post implements Serializable {
 
     private String status;
 
-    private String post_dt;
+    private Timestamp post_dt;
 
-    private String edited_dt;
+    private Timestamp edited_dt;
 
     private String price;
 
     private String category;
 
-    private Picture picture;
+    private String picture;
 
     private String accountId;
 
-    public Post(String id, @NotBlank(message = "Title is mandatory") String title, @NotBlank(message = "Description is mandatory") String description, String website, GeoPoint location, String status, String post_dt, String edited_dt, String price, String category, Picture picture, String accountId) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.website = website;
-        this.location = location;
-        this.status = status;
+    public  Post(PostsEntity postsDTO){
+        this.id = postsDTO.getPostId().toString();
+        this.title = postsDTO.getTitle();
+        this.description = postsDTO.getDescription();
+        this.website = postsDTO.getWebsite();
+        this.location = new GeoPoint(postsDTO.getGpsX(),postsDTO.getGpsY());
+        this.status = postsDTO.getStatus();
+        this.post_dt = postsDTO.getCreationDate();
+        this.edited_dt = postsDTO.getLastUpdatedDate();
+        this.price = postsDTO.getPrice();
+        this.category = postsDTO.getCategory();
+        this.picture = postsDTO.getImages();
+        this.accountId = postsDTO.getAccountId().toString();
+    }
+
+
+
+
+    public Post() {
+    }
+
+
+    public Timestamp getPost_dt() {
+        return post_dt;
+    }
+
+    public void setPost_dt(Timestamp post_dt) {
         this.post_dt = post_dt;
+    }
+
+    public Timestamp getEdited_dt() {
+        return edited_dt;
+    }
+
+    public void setEdited_dt(Timestamp edited_dt) {
         this.edited_dt = edited_dt;
-        this.price = price;
-        this.category = category;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
         this.picture = picture;
-        this.accountId = accountId;
     }
 
     public String getTitle() {
@@ -100,22 +135,6 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-    public String getPost_dt() {
-        return post_dt;
-    }
-
-    public void setPost_dt(String post_dt) {
-        this.post_dt = post_dt;
-    }
-
-    public String getEdited_dt() {
-        return edited_dt;
-    }
-
-    public void setEdited_dt(String edited_dt) {
-        this.edited_dt = edited_dt;
-    }
-
     public String getPrice() {
         return price;
     }
@@ -132,13 +151,6 @@ public class Post implements Serializable {
         this.category = category;
     }
 
-    public Picture getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
 
     public String getAccountId() {
         return accountId;
@@ -147,6 +159,8 @@ public class Post implements Serializable {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
+
+
 
     @Override
     public String toString() {
