@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:55c9bb7757f6fcc819d5e281689d7178770bd9c7",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:c7a671bf03aae962a967d4071451cc7a7106b618",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -409,7 +409,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:55c9bb7757f6fcc819d5e281689d7178770bd9c7",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:c7a671bf03aae962a967d4071451cc7a7106b618",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -469,72 +469,7 @@
             "command": null,
             "linuxParameters": null,
             "cpu": 512,
-            "environment": [
-                {
-                    "name": "NEO4J_ACCEPT_LICENSE_AGREEMENT",
-                    "value": "yes"
-                },
-                {
-                    "name": "NEO4J_apoc_export_file_enabled",
-                    "value": "true"
-                },
-                {
-                    "name": "NEO4J_apoc_import_file_enabled",
-                    "value": "true"
-                },
-                {
-                    "name": "NEO4J_apoc_import_file_use_neo4j_config",
-                    "value": "true"
-                },
-                {
-                    "name": "NEO4J_AUTH",
-                    "value": "none"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_bolt_advertised__address",
-                    "value": "7687"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_bolt_listen__address",
-                    "value": "7687"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_default__advertised__address",
-                    "value": "studymama-load-balancer-795957589.ap-southeast-1.elb.amazonaws.com"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_http_listen__address",
-                    "value": "7474"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_https_listen__address",
-                    "value": "6477"
-                },
-                {
-                    "name": "NEO4J_dbms_memory_heap_initial__size",
-                    "value": "1024m"
-                },
-                {
-                    "name": "NEO4J_dbms_memory_heap_max__size",
-                    "value": "1024m"
-                },
-                {
-                    "name": "NEO4J_dbms_memory_pagecache_size",
-                    "value": "256m"
-                },
-                {
-                    "name": "NEO4J_dbms_mode",
-                    "value": "core"
-                },
-                {
-                    "name": "NEO4J_dbms_security_procedures_unrestricted",
-                    "value": "apoc.*"
-                },
-                {
-                    "name": "NEO4J_dbms_connector_default__listen__address",
-                    "value": "studymama-load-balancer-795957589.ap-southeast-1.elb.amazonaws.com"
-                }
-            ],
+            "environment": null,
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
@@ -559,7 +494,7 @@
                 ],
                 "timeout": 5,
                 "interval": 30,
-                "startPeriod": null
+                "startPeriod": "300"
             },
             "essential": true,
             "links": null,
@@ -589,5 +524,6 @@
     "inferenceAccelerators": null,
     "proxyConfiguration": null,
     "volumes": [],
-    "tags": []
+    "tags": [],
+    "placementConstraints": []
 }
