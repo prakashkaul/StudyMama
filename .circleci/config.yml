@@ -1,0 +1,54 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache py-pip=9.0.0-r1
+            pip install docker-compose==1.15.0
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - add_ssh_key:
+         fingerprints:
+           - 1f:fc:b0:d8:11:e6:30:ce:d4:c7:c5:16:c1:b8:7e:d8
+      - run: 
+         command: | 
+           mvn clean install -Dmaven.test.skip=true
+           ssh -i 
+      - run:
+          name: docker-compose and run
+          command: | 
+            echo y | docker image prune
+            echo y | docker container prune
+            docker-compose -f docker-compose.yml up --build -d
+      - run:
+          name: show docker images
+          command: docker images
+      - deploy:
+          name: Push application Docker image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            docker tag studymama $DOCKER_USER/studymama:$CIRCLE_SHA1
+            docker tag studymama $DOCKER_USER/studymama:latest
+            docker push $DOCKER_USER/studymama:$CIRCLE_SHA1
+            docker push $DOCKER_USER/studymama:latest
+            
+workflows:
+    version: 2
+    build_and_deploy:
+        jobs:
+            - build 
+            - deploy:
+                requires:
+                  - build
+                filters:
+                    branches:
+                        only:
+                          - master
