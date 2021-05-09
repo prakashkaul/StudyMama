@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:a2b2e42c0192f401473d928e65c3527ba2168ef9",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:9a8fe95e3e8099fa14e33a7ac46a85ca048bbd71",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -359,9 +359,10 @@
         },
         {
             "dnsSearchDomains": null,
-            "environmentFiles": [],
+            "environmentFiles": null,
             "logConfiguration": {
                 "logDriver": "awslogs",
+                "secretOptions": null,
                 "options": {
                     "awslogs-group": "/ecs/studymama-task-definition",
                     "awslogs-region": "ap-southeast-1",
@@ -376,7 +377,11 @@
                     "containerPort": 5044
                 }
             ],
-            "command": ["logstash","-f","/conf/logstash.conf"],
+            "command": [
+                "logstash",
+                "-f",
+                "/conf/logstash.conf"
+            ],
             "linuxParameters": null,
             "cpu": 512,
             "environment": [
@@ -396,14 +401,15 @@
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
-            "mountPoints": null,
+            "mountPoints": [],
             "workingDirectory": null,
             "secrets": null,
             "dockerSecurityOptions": null,
+            "memory": null,
             "memoryReservation": 1024,
-            "volumesFrom": null,
+            "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:a2b2e42c0192f401473d928e65c3527ba2168ef9",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:9a8fe95e3e8099fa14e33a7ac46a85ca048bbd71",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -434,7 +440,108 @@
             "dockerLabels": null,
             "systemControls": null,
             "privileged": null,
-            "name": "logstash",
+            "name": "logstash"
+        },
+        {
+            "name": "neo4j",
+            "image": "neo4j:4.0.1",
+            "memoryReservation": "1024",
+            "cpu": "512",
+            "resourceRequirements": null,
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": "7474",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": "7687",
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "NEO4J_AUTH",
+                    "value": "none"
+                },
+                {
+                    "name": "NEO4J_dbms_mode",
+                    "value": "core"
+                },
+                {
+                    "name": "NEO4J_ACCEPT_LICENSE_AGREEMENT",
+                    "value": "yes"
+                },
+                {
+                    "name": "NEO4J_apoc_export_file_enabled",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_apoc_import_file_enabled",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_apoc_import_file_use_neo4j_config",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_dbms_security_procedures_unrestricted",
+                    "value": "apoc.*"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_http_listen__address",
+                    "value": "7474"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_https_listen__address",
+                    "value": "6477"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_bolt_listen__address",
+                    "value": "7687"
+                },
+                {
+                    "name": "NEO4J_dbms_connector_bolt_advertised__address",
+                    "value": "7687"
+                },
+                {
+                    "name": "NEO4J_dbms_memory_heap_initial__size",
+                    "value": "1024m"
+                },
+                {
+                    "name": "NEO4J_dbms_memory_heap_max__size",
+                    "value": "1024m"
+                },
+                {
+                    "name": "NEO4J_dbms_memory_pagecache_size",
+                    "value": "256m"
+                }
+            ],
+            "environmentFiles": [],
+            "secrets": null,
+            "mountPoints": null,
+            "volumesFrom": null,
+            "hostname": null,
+            "user": null,
+            "workingDirectory": null,
+            "extraHosts": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/studymama-task-definition",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "ulimits": null,
+            "dockerLabels": null,
+            "dependsOn": null,
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://127.0.0.1:7474 || exit 1"
+                ]
+            },
             "repositoryCredentials": {
                 "credentialsParameter": ""
             }
