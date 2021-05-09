@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.github.javafaker.Faker;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class SearchController {
 
