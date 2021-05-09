@@ -499,7 +499,7 @@
                     "value": "7687"
                 },
                 {
-                    "name": "NEO4J_dbms_connector_default_advertised_address",
+                    "name": "NEO4J_dbms_connector_default__advertised__address",
                     "value": "studymama-load-balancer-795957589.ap-southeast-1.elb.amazonaws.com"
                 },
                 {
@@ -531,7 +531,7 @@
                     "value": "apoc.*"
                 },
                 {
-                    "name": "NEO4J_dbms_connector_default_listen_address",
+                    "name": "NEO4J_dbms_connector_default__listen__address",
                     "value": "studymama-load-balancer-795957589.ap-southeast-1.elb.amazonaws.com"
                 }
             ],
