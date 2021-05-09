@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.com.studymama.DTO.UserProfileDTO;
+import sg.com.studymama.Entity.UserData;
 import sg.com.studymama.model.DAOUserProfile;
+import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.repository.UserProfileRepository;
 
 @Service
