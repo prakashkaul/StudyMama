@@ -316,7 +316,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:531b389b1d029dd4fbd048454095186ffcd646e3",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:5c72061443aa9478520dc8d0d6b1b7559e8f7004",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -409,7 +409,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:531b389b1d029dd4fbd048454095186ffcd646e3",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:5c72061443aa9478520dc8d0d6b1b7559e8f7004",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -544,7 +544,7 @@
             "disableNetworking": null,
             "interactive": null,
             "healthCheck": null,
-            "essential": true,
+            "essential": false,
             "links": null,
             "hostname": null,
             "extraHosts": null,
