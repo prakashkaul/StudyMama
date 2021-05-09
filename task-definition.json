@@ -492,19 +492,19 @@
                 },
                 {
                     "name": "NEO4J_dbms_connector_bolt_advertised__address",
-                    "value": "127.0.0.1:7687"
+                    "value": "7687"
                 },
                 {
                     "name": "NEO4J_dbms_connector_bolt_listen__address",
-                    "value": "127.0.0.1:7687"
+                    "value": "7687"
                 },
                 {
                     "name": "NEO4J_dbms_connector_http_listen__address",
-                    "value": "127.0.0.1:7474"
+                    "value": "7474"
                 },
                 {
                     "name": "NEO4J_dbms_connector_https_listen__address",
-                    "value": "127.0.0.1:6477"
+                    "value": "6477"
                 },
                 {
                     "name": "NEO4J_dbms_memory_heap_initial__size",
