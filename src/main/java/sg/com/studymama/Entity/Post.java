@@ -1,22 +1,14 @@
 package sg.com.studymama.Entity;
 
-import java.sql.Timestamp;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
-import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
-@Table("post")
 public class Post {
 	
 	@Id@GeneratedValue
