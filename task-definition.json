@@ -246,10 +246,9 @@
         },
         {
             "dnsSearchDomains": null,
-            "environmentFiles": null,
+            "environmentFiles": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
-                "secretOptions": null,
                 "options": {
                     "awslogs-group": "/ecs/studymama-task-definition",
                     "awslogs-region": "ap-southeast-1",
@@ -273,14 +272,6 @@
             "cpu": 512,
             "environment": [
                 {
-                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
-                    "value": "None"
-                },
-                {
-                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
-                    "value": "1s"
-                },
-                {
                     "name": "SPRING_DATASOURCE_PASSWORD",
                     "value": "studymama@123"
                 },
@@ -289,34 +280,53 @@
                     "value": "jdbc:mysql://127.0.01:3306/studymama?createDatabaseIfNotExist=true&autoReconnect=true"
                 },
                 {
-                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
-                    "value": "1m"
-                },
-                {
                     "name": "SPRING_DATASOURCE_USERNAME",
                     "value": "studymama"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_CONNECTION-TIMEOUT",
+                    "value": "1s"
                 },
                 {
                     "name": "SPRING_ELASTICSEARCH_REST_PASSWORD",
                     "value": "None"
                 },
                 {
+                    "name": "SPRING_ELASTICSEARCH_REST_READ-TIMEOUT",
+                    "value": "1m"
+                },
+                {
                     "name": "SPRING_ELASTICSEARCH_REST_URIS",
                     "value": "http://127.0.0.1:9200"
+                },
+                {
+                    "name": "SPRING_ELASTICSEARCH_REST_USERNAME",
+                    "value": "None"
+                },
+                {
+                    "name": "SPRING_DATA_NEO4J_URI",
+                    "value": "bolt://0.0.0.0:7687"
+                },
+                {
+                    "name": "SPRING_DATA_NEO4J_USERNAME",
+                    "value": "neo4j"
+                },
+                {
+                    "name": "SPRING_DATA_NEO4J_PASSWORD",
+                    "value": "neo4j"
                 }
             ],
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
-            "mountPoints": [],
+            "mountPoints": null,
             "workingDirectory": null,
             "secrets": null,
             "dockerSecurityOptions": null,
-            "memory": null,
             "memoryReservation": 1024,
-            "volumesFrom": [],
+            "volumesFrom": null,
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:55ad1f211e7c8fae698b8aa1666605688aa47525",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-repo:eb00c3764b1803d19e1c3603f3044dd35ceadbcb",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -355,7 +365,10 @@
             "dockerLabels": null,
             "systemControls": null,
             "privileged": null,
-            "name": "studymama"
+            "name": "studymama",
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            }
         },
         {
             "dnsSearchDomains": null,
@@ -409,7 +422,7 @@
             "memoryReservation": 1024,
             "volumesFrom": [],
             "stopTimeout": null,
-            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:55ad1f211e7c8fae698b8aa1666605688aa47525",
+            "image": "336218866683.dkr.ecr.ap-southeast-1.amazonaws.com/studymama-logstash-repo:eb00c3764b1803d19e1c3603f3044dd35ceadbcb",
             "startTimeout": null,
             "firelensConfiguration": null,
             "dependsOn": [
@@ -469,7 +482,36 @@
             "command": null,
             "linuxParameters": null,
             "cpu": 512,
-            "environment": null,
+            "environment": [
+                {
+                    "name": "NEO4J_AUTH",
+                    "value": "none"
+                },
+                {
+                    "name": "NEO4J_dbms_mode",
+                    "value": "core"
+                },
+                {
+                    "name": "NEO4J_ACCEPT_LICENSE_AGREEMENT",
+                    "value": "yes"
+                },
+                {
+                    "name": "NEO4J_apoc_export_file_enabled",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_apoc_import_file_enabled",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_apoc_import_file_use__neo4j__config",
+                    "value": "true"
+                },
+                {
+                    "name": "NEO4J_dbms_security_procedures_unrestricted",
+                    "value": "apoc.*"
+                }
+            ],
             "resourceRequirements": null,
             "ulimits": null,
             "dnsServers": null,
