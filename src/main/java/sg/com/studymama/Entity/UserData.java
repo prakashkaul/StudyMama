@@ -14,6 +14,7 @@ import sg.com.studymama.model.DAOUser;
 
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
+@Table(name = "user")
 public class UserData {
 	
 	@Id@GeneratedValue
