@@ -17,3 +17,11 @@ LIMIT 0, 1000
 INSERT INTO `user_profile` (`id`,`created_by`,`created_date`,`last_modified_by`,`last_modified_date`,`address`,`contact`,`first_name`,`last_name`) VALUES (1,'anonymousUser','2021-05-10 17:53:54.625000','anonymousUser','2021-05-10 17:53:54.625000',NULL,NULL,NULL,NULL);
 INSERT INTO `user_profile` (`id`,`created_by`,`created_date`,`last_modified_by`,`last_modified_date`,`address`,`contact`,`first_name`,`last_name`) VALUES (2,'anonymousUser','2021-05-10 17:54:13.300000','anonymousUser','2021-05-10 17:54:13.300000',NULL,NULL,NULL,NULL);
 INSERT INTO `user_profile` (`id`,`created_by`,`created_date`,`last_modified_by`,`last_modified_date`,`address`,`contact`,`first_name`,`last_name`) VALUES (3,'anonymousUser','2021-05-10 17:54:27.164000','anonymousUser','2021-05-10 17:54:27.164000',NULL,NULL,NULL,NULL);
+
+/*
+-- Query: SELECT * FROM studymama.post
+LIMIT 0, 1000
+
+-- Date: 2021-05-10 19:30
+*/
+INSERT INTO `post` (`post_id`,`account_id`,`category`,`contact`,`creation_date`,`description`,`gps_x`,`gps_y`,`image`,`last_updated_date`,`price`,`status`,`title`,`website`) VALUES (1,1,'Education','0986091510','2021-05-10 11:29:37.194121','General Education learning class ',1.3369103,103.697898,NULL,'2021-05-10 11:29:37.193927','100','1','Education',NULL);
