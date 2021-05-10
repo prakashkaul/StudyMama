@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +61,7 @@ public class PostsController {
 	}
     
 	@GetMapping("/post/{postId}")
-	public String postData(@PathVariable("postId")Integer id, Model model) {
+	public PostsDTO postData(@PathVariable("postId")Integer id, Model model) {
 		
 		PostsDTO postDTO = null;
 		if(id != null && id>0 ) {
@@ -70,11 +71,11 @@ public class PostsController {
 		}
 		
 		model.addAttribute("DTO", postDTO);
-		return "post/postForm";
+		return postDTO;
 	}
 
 	@PostMapping("/postFormSubmit")
-	public String postFormSubmit(@RequestBody PostsDTO postDTO, BindingResult bindingResult,
+	public ResponseEntity<PostsDTO> postFormSubmit(@RequestBody PostsDTO postDTO, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		
 		try {
@@ -84,23 +85,21 @@ public class PostsController {
 			LOG.info(postDTO.toString());
 			springDataPostService.createPost(new PostData(post));
 			recommendService.save(new Post(post));//neo4j?
-			return "redirect:/post";
+			return ResponseEntity.ok(postDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("submittedDTO", postDTO);
 			redirectAttributes.addAttribute("notificationType", "error");
 			redirectAttributes.addAttribute("notificationMessage", e.getMessage());
-			return "redirect:/post";
+			return null;
 		}
 
 	}
 	
 	@RequestMapping(value = "/postDelete",method= RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
-	public String postDelete(@RequestParam(name="postId")Integer postId) { 
+	public void postDelete(@RequestParam(name="postId")Integer postId) { 
 		LOG.info("POST ID IS " + postId);
 		
 		postService.deletePost(postId);
-		
-		return "redirect:/post";
 	}
 }

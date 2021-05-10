@@ -5,6 +5,7 @@ import javax.websocket.server.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,7 @@ public class CommentController {
 	private CommentService commentService;
 	
 	@PostMapping("/commentSubmit")
-	public String commentSubmit(@RequestBody CommentDTO commentDTO, BindingResult bindingResult,
+	public ResponseEntity<CommentDTO> commentSubmit(@RequestBody CommentDTO commentDTO, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		
 		
@@ -38,12 +39,12 @@ public class CommentController {
 			redirectAttributes.addAttribute("notificationType", "success");
 			redirectAttributes.addAttribute("notificationMessage", "Success");
 			LOG.info(commentDTO.toString());
-			return "redirect:/post/";
+			return ResponseEntity.ok(commentDTO);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("submittedDTO", commentDTO);
 			redirectAttributes.addAttribute("notificationType", "error");
 			redirectAttributes.addAttribute("notificationMessage", e.getMessage());
-			return "redirect:/post/";
+			return null;
 		}
 
 	}
