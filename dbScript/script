@@ -39,9 +39,9 @@ CREATE TABLE `post_aud` (
   `contact` varchar(15) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `creation_date` datetime DEFAULT NULL,
-  `last_updated_date` datetime DEFAULT NULL
+  `last_updated_date` datetime DEFAULT NULL,
    `REV` int(11) NOT NULL,
-  `REVTYPE` tinyint(4) DEFAULT NULL
+  `REVTYPE` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`AUDIT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
