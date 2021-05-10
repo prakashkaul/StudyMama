@@ -15,5 +15,5 @@ public interface RecommendationRepository extends Neo4jRepository<Post, Long>{
 
 	Post save(Post post);
 	
-	UserData saveUser(UserData user);
+	//UserData saveUser(UserData user);
 }
