@@ -21,7 +21,7 @@ public class PostsDTO implements Serializable {
 	private String contact;
 	private String images;
 	private BigDecimal score;
-	private List<String> comments;
+	private List<CommentDTO> comments;
 	
 	public PostsDTO() {
 		super();
@@ -47,7 +47,7 @@ public class PostsDTO implements Serializable {
 
 	public PostsDTO(Integer postId, Integer accountId, String title, String description, String category, String price,
 			String website, String status, Double gpsX, Double gpsY, String contact, String images, BigDecimal score,
-			List<String> comments) {
+			List<CommentDTO> comments) {
 		super();
 		this.postId = postId;
 		this.accountId = accountId;
@@ -169,11 +169,11 @@ public class PostsDTO implements Serializable {
 		this.score = score;
 	}
 
-	public List<String> getComments() {
+	public List<CommentDTO> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<String> comments) {
+	public void setComments(List<CommentDTO> comments) {
 		this.comments = comments;
 	}
 }
