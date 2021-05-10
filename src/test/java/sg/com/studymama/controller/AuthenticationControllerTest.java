@@ -26,8 +26,8 @@ public class AuthenticationControllerTest {
 		String uri = "/register";
 		
 		UserDTO userDto = new UserDTO();
-		userDto.setUsername("user");
-		userDto.setPassword("user");
+		userDto.setUsername("user1");
+		userDto.setPassword("user1");
 		userDto.setRole("ROLE_USER");
 
 		String inputJson = Util.mapToJson(userDto);
