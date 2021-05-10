@@ -39,10 +39,10 @@ public class PostsEntity implements Serializable {
     @Column(name = "ACCOUNT_ID", length = 10)
     private Integer accountId;
 
-    @Column(name = "CATEGORY")
+    @Column(name = "CATEGORY", length = 50)
     private String category; 
     
-    @Column(name = "WEBSITE", length = 5)
+    @Column(name = "WEBSITE", length = 300)
     private String website;
     
     @Column(name = "PRICE", length = 5)
