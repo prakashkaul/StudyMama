@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import sg.com.studymama.model.DAOUser;
+import javax.persistence.Table;
 
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
