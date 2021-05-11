@@ -46,7 +46,9 @@ public class PostData implements Serializable {
         this.title = postsDTO.getTitle();
         this.description = postsDTO.getDescription();
         this.website = postsDTO.getWebsite();
-        this.location = new GeoPoint(postsDTO.getGpsX(),postsDTO.getGpsY());
+        if(postsDTO.getGpsX()!=null&&postsDTO.getGpsY()!=null){
+            this.location = new GeoPoint(postsDTO.getGpsX(),postsDTO.getGpsY());
+        }
         this.status = postsDTO.getStatus();
         this.post_dt = postsDTO.getCreationDate().getTime();
         this.edited_dt = postsDTO.getLastUpdatedDate().getTime();
@@ -144,6 +146,21 @@ public class PostData implements Serializable {
     }
 
 
+    public Long getPost_dt() {
+        return post_dt;
+    }
+
+    public void setPost_dt(Long post_dt) {
+        this.post_dt = post_dt;
+    }
+
+    public Long getEdited_dt() {
+        return edited_dt;
+    }
+
+    public void setEdited_dt(Long edited_dt) {
+        this.edited_dt = edited_dt;
+    }
 
     @Override
     public String toString() {

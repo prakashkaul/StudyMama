@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.com.studymama.DTO.CommentDTO;
 import sg.com.studymama.DTO.PostsDTO;
 import sg.com.studymama.Entity.CommentEntity;
 import sg.com.studymama.Entity.PostsEntity;
@@ -78,13 +79,25 @@ public class PostServiceImpl implements PostService{
 		}
 		
 		if(post.getCommentEntity() != null && post.getCommentEntity().size()>0) {
-			List<String> comments = new ArrayList<String>();
+			List<CommentDTO> comments = new ArrayList<CommentDTO>();
 			for(CommentEntity entity : post.getCommentEntity()) {
-				comments.add(entity.getDescription());
+				
+				comments.add(convertToComment(entity));
 			}
 			dto.setComments(comments);
 		}
 		return dto;
+	}
+	
+	private CommentDTO convertToComment(CommentEntity entity) {
+		CommentDTO comment = new CommentDTO();
+		comment.setAccountId(entity.getAccountId());
+		comment.setAccountName(entity.getAccountName());
+		comment.setCommentId(entity.getCommentId());
+		comment.setDescription(entity.getDescription());
+		comment.setPostId(entity.getPostId());
+		
+		return comment;
 	}
 
 	@Override
