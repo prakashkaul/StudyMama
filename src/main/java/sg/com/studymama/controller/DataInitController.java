@@ -59,7 +59,7 @@ public class DataInitController {
 					postDTO.setGpsY(Double.parseDouble(faker.address().latitude()));
 					postDTO.setImages("");
 					postDTO.setPrice(faker.number().numberBetween(20, 100) + "");
-					postDTO.setStatus("1");
+					postDTO.setStatus(faker.number().numberBetween(0, 2) + "");
 					postDTO.setScore(new BigDecimal(0.0));
 					postDTO.setTitle(faker.commerce().department());
 					postDTO.setWebsite("www." + faker.internet().domainName());
