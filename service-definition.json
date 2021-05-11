@@ -10,12 +10,17 @@
                     "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:336218866683:targetgroup/studymama-kibana/24bf223f1c5a188e",
                     "containerName": "kibana",
                     "containerPort": 5601
+                },
+				{
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:336218866683:targetgroup/studymama-neo4j/a28597001ad73615",
+                    "containerName": "neo4j",
+                    "containerPort": 7474
                 }
             ],
             "desiredCount": 1,
             "launchType": "FARGATE",
             "platformVersion": "LATEST",
-            "taskDefinition": "arn:aws:ecs:ap-southeast-1:336218866683:task-definition/studymama-task-definition:59",
+            "taskDefinition": "arn:aws:ecs:ap-southeast-1:336218866683:task-definition/studymama-task-definition:136",
             "deploymentConfiguration": {
                 "deploymentCircuitBreaker": {
                     "enable": false,
