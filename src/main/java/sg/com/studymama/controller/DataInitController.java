@@ -1,5 +1,6 @@
 package sg.com.studymama.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -55,6 +56,7 @@ public class DataInitController {
 					commentDTO.setPostId(i);
 					commentDTO.setDescription(faker.howIMetYourMother().quote());
 					commentDTO.setCommentId(j);
+					comments.add(commentDTO);
 				}
 				postDTO.setAccountId(faker.number().numberBetween(1, 3));
 				postDTO.setComments(comments);
@@ -62,11 +64,12 @@ public class DataInitController {
 				postDTO.setContact(faker.phoneNumber().subscriberNumber(8));
 				postDTO.setDescription(faker.address().fullAddress());
 				postDTO.setGpsX(Double.parseDouble(faker.address().longitude()));
-				postDTO.setGpsX(Double.parseDouble(faker.address().latitude()));
+				postDTO.setGpsY(Double.parseDouble(faker.address().latitude()));
 				postDTO.setImages("");
 				postDTO.setPostId(i);
 				postDTO.setPrice(faker.number().numberBetween(20, 100) + "");
 				postDTO.setStatus("1");
+				postDTO.setScore(new BigDecimal(0.0));
 				postDTO.setTitle(faker.commerce().department());
 				postDTO.setWebsite("www." + faker.internet().domainName());
 				PostsEntity post = postService.save(postDTO);
