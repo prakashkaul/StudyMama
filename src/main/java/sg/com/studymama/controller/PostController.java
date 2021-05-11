@@ -26,16 +26,8 @@ public class PostController {
     @Autowired
     private  SpringDataPostService springDataPostService;
 
-    @Operation(summary = "Create a post")
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public ResponseEntity<?> post(@RequestBody PostData post) throws Exception {
-        LOG.info("Adding Posts to Elasticsearch " + post.toString());
-
-        return ResponseEntity.ok(springDataPostService.createPost(post));
-    }
-
     @Operation(summary = "delete a post by id")
-    @RequestMapping(value = "/post", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/postDelete", method = RequestMethod.POST)
     public ResponseEntity<?> post( @Parameter(description = "the id of post to be deleted ") @RequestParam String id) throws Exception {
         LOG.info("Delete Post id "+id);
         springDataPostService.deletePost(id);

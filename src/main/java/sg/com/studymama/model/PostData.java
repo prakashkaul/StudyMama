@@ -50,12 +50,17 @@ public class PostData implements Serializable {
             this.location = new GeoPoint(postsDTO.getGpsX(),postsDTO.getGpsY());
         }
         this.status = postsDTO.getStatus();
-        this.post_dt = postsDTO.getCreationDate().getTime();
-        this.edited_dt = postsDTO.getLastUpdatedDate().getTime();
+        if(postsDTO.getCreationDate()!=null){
+            this.post_dt = postsDTO.getCreationDate().getTime();
+        }
+        if(postsDTO.getLastUpdatedDate()!=null){
+            this.edited_dt = postsDTO.getLastUpdatedDate().getTime();
+        }
         this.price = postsDTO.getPrice();
         this.category = postsDTO.getCategory();
         this.picture = postsDTO.getImages();
         this.accountId = postsDTO.getAccountId().toString();
+        System.out.println("data"+postsDTO.getDescription());
     }
 
 

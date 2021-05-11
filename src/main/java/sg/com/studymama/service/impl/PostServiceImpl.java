@@ -151,11 +151,13 @@ public class PostServiceImpl implements PostService{
 		entity.setImages(Optional.ofNullable(dto.getImages()).orElse(null));
 		entity.setPostId(dto.getPostId());
 		entity.setPrice(Optional.ofNullable(dto.getPrice()).orElse(null));
+
 		if(dto.getStatus().equalsIgnoreCase(OPEN)) {
 			entity.setStatus("0");
 		} else {
 			entity.setStatus("1");
 		}
+
 		
 		entity.setTitle(dto.getTitle());
 		entity.setWebsite(Optional.ofNullable(dto.getWebsite()).orElse(null));
