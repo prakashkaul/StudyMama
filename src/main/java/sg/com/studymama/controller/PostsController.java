@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ import sg.com.studymama.repository.RecommendationRepository;
 import sg.com.studymama.service.PostService;
 import sg.com.studymama.service.RecommendationService;
 import sg.com.studymama.service.SpringDataPostService;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class PostsController {
 	
@@ -95,7 +96,7 @@ public class PostsController {
 		}
 
 	}
-	
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/postDelete",method= RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
 	public void postDelete(@RequestParam(name="postId")Integer postId) { 
 		LOG.info("POST ID IS " + postId);

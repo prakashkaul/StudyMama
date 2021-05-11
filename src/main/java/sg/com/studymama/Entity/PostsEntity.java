@@ -27,10 +27,10 @@ public class PostsEntity implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "POST_ID", length = 6)
+    @Column(name = "POST_ID", length = 10)
     private Integer postId; 
 	
-    @Column(name = "TITLE", length = 30)
+    @Column(name = "TITLE", length = 200)
     private String title;
     
     @Column(name = "DESCRIPTION", length = 250)
@@ -45,22 +45,22 @@ public class PostsEntity implements Serializable {
     @Column(name = "WEBSITE", length = 300)
     private String website;
     
-    @Column(name = "PRICE", length = 5)
+    @Column(name = "PRICE", length = 10)
     private String price;
     
     @Column(name = "CONTACT", length = 15)
     private String contact;
     
-    @Column(name = "IMAGE", length = 5)
+    @Column(name = "IMAGE", length = 100)
     private String images;
     
-    @Column(name = "GPS_X", length = 5)
+    @Column(name = "GPS_X", length = 10)
     private Double gpsX;
     
-    @Column(name = "GPS_Y", length = 5)
+    @Column(name = "GPS_Y", length = 10)
     private Double gpsY;
     
-    @Column(name = "STATUS", length = 5)
+    @Column(name = "STATUS", length = 10)
     private String status;
 
     @Column(name = "CREATION_DATE")
