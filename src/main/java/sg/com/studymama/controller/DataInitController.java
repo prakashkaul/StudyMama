@@ -41,7 +41,7 @@ public class DataInitController {
 	@Autowired
 	private RecommendationRepository recommendService;
 
-	@RequestMapping(value = "/initPostData", method = RequestMethod.POST)
+	@RequestMapping(value = "/initPostData/{numberOfRows}", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<PostsDTO> initPostData(@PathVariable("numberOfRows") Integer rows) {
 		PostsDTO postDTO = new PostsDTO();
 		try {
