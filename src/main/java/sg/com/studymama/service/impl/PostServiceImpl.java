@@ -75,6 +75,7 @@ public class PostServiceImpl implements PostService{
 			}
 			
 			BigDecimal avg = BigDecimal.valueOf(sum/post.getRateEntity().size());
+			avg = avg.setScale(1);
 			dto.setScore(avg);
 		}
 		
