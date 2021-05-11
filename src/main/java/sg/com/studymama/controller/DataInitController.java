@@ -50,16 +50,7 @@ public class DataInitController {
 			Faker faker = new Faker(new Locale("en-SG"));
 			postDTO = new PostsDTO();
 			for (int i = 2; i < rows + 2; i++) {
-				List<CommentDTO> comments = new ArrayList<>();
-				for (int j = 0; j < faker.number().numberBetween(1, 5); j++) {
-					CommentDTO commentDTO = new CommentDTO();
-					commentDTO.setPostId(i);
-					commentDTO.setDescription(faker.howIMetYourMother().quote());
-					commentDTO.setCommentId(j);
-					comments.add(commentDTO);
-				}
 				postDTO.setAccountId(faker.number().numberBetween(1, 3));
-				postDTO.setComments(comments);
 				postDTO.setCategory(faker.company().industry());
 				postDTO.setContact(faker.phoneNumber().subscriberNumber(8));
 				postDTO.setDescription(faker.address().fullAddress());
