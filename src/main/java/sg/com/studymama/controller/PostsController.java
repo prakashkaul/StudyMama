@@ -96,8 +96,7 @@ public class PostsController {
 		}
 
 	}
-	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "/postDelete",method= RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/postDelete",produces = "application/json; charset=UTF-8")
 	public void postDelete(@RequestParam(name="postId")Integer postId) { 
 		LOG.info("POST ID IS " + postId);
 		
