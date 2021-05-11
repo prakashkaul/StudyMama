@@ -62,7 +62,6 @@ def sshexeccmd(ip, docker_hub_id):
             result = stdout.readline()
             print(result)
 
-            # 由于在退出时，stdout还是会有一次输出，因此需要单独处理，处理完之后，就可以跳出了
             if stdout.channel.exit_status_ready():
                 a = stdout.readlines()
                 print(a)
