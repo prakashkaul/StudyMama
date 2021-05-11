@@ -176,4 +176,13 @@ public class PostsDTO implements Serializable {
 	public void setComments(List<CommentDTO> comments) {
 		this.comments = comments;
 	}
+
+	@Override
+	public String toString() {
+		return "PostsDTO [postId=" + postId + ", accountId=" + accountId + ", title=" + title + ", description="
+				+ description + ", category=" + category + ", price=" + price + ", website=" + website + ", status="
+				+ status + ", gpsX=" + gpsX + ", gpsY=" + gpsY + ", contact=" + contact + ", images=" + images
+				+ ", score=" + score + ", comments=" + comments + "]";
+	}
+	
 }
