@@ -1,6 +1,9 @@
 package sg.com.studymama.Entity;
 
+import java.util.List;
+
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 
@@ -22,7 +25,6 @@ public class Post {
 	
 	private String contact;
 
-	
 	private String creationDate;
 	
 	public Post(PostsEntity post) {
@@ -32,7 +34,7 @@ public class Post {
           this.contact = post.getContact();
           this.description = post.getDescription();
           this.creationDate = String.valueOf(post.getCreationDate());
-          this.category = post.getCategory();		
+          this.category = post.getCategory();
 	}
 
 	public Post() {
@@ -70,7 +72,6 @@ public class Post {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
 	public String getContact() {
 		return contact;
 	}
@@ -78,8 +79,6 @@ public class Post {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-
-
 	public String getCreationDate() {
 		return creationDate;
 	}
