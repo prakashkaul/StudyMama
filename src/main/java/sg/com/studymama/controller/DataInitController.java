@@ -49,8 +49,8 @@ public class DataInitController {
 			LOG.info("Init Post Data");
 			Faker faker = new Faker(new Locale("en-SG"));
 			postDTO = new PostsDTO();
-			try {
-				for (int i = 2; i < rows + 2; i++) {
+			for (int i = 2; i < rows + 2; i++) {
+				try {
 					postDTO.setAccountId(faker.number().numberBetween(1, 3));
 					postDTO.setCategory(faker.company().industry());
 					postDTO.setContact(faker.phoneNumber().subscriberNumber(8));
@@ -67,9 +67,9 @@ public class DataInitController {
 					LOG.info(postDTO.toString());
 					springDataPostService.createPost(new PostData(post));
 					recommendService.save(new Post(post));
+				} catch (Exception e) {
+					LOG.error(e.getLocalizedMessage());
 				}
-			} catch(Exception e) {
-				LOG.error(e.getLocalizedMessage());
 			}
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage());
