@@ -47,7 +47,7 @@ public class PostData implements Serializable {
         this.description = postsDTO.getDescription();
         this.website = postsDTO.getWebsite();
         if(postsDTO.getGpsX()!=null&&postsDTO.getGpsY()!=null){
-            this.location = new GeoPoint(postsDTO.getGpsX(),postsDTO.getGpsY());
+            this.location = new GeoPoint(postsDTO.getGpsY(),postsDTO.getGpsX());
         }
         this.status = postsDTO.getStatus();
         if(postsDTO.getCreationDate()!=null){
