@@ -24,8 +24,8 @@ public class PostServiceImpl implements PostService{
 	@Autowired
 	PostRepository postRepository;
 	
-	private static final String ACTIVE = "ACTIVE";
-	private static final String INACTIVE = "CLOSED";
+	private static final String OPEN = "OPEN";
+	private static final String CLOSED = "CLOSED";
 
 	@Override
 	public Integer deletePost(Integer postId) {
@@ -61,10 +61,10 @@ public class PostServiceImpl implements PostService{
 		dto.setImages(Optional.ofNullable(post.getImages()).orElse(null));
 		dto.setPrice(Optional.ofNullable(post.getPrice()).orElse(null));
 		dto.setWebsite(Optional.ofNullable(post.getWebsite()).orElse(null));
-		if(post.getStatus()== "0" ) {
-			dto.setStatus(ACTIVE);
+		if(post.getStatus().equalsIgnoreCase("0")) {
+			dto.setStatus(OPEN);
 		} else {
-			dto.setStatus(INACTIVE);
+			dto.setStatus(CLOSED);
 		}
 		
 		if(post.getRateEntity() !=null && post.getRateEntity().size()>0) {
@@ -150,7 +150,7 @@ public class PostServiceImpl implements PostService{
 		entity.setImages(Optional.ofNullable(dto.getImages()).orElse(null));
 		entity.setPostId(dto.getPostId());
 		entity.setPrice(Optional.ofNullable(dto.getPrice()).orElse(null));
-		if(dto.getStatus()== ACTIVE) {
+		if(dto.getStatus().equalsIgnoreCase(OPEN)) {
 			entity.setStatus("0");
 		} else {
 			entity.setStatus("1");
