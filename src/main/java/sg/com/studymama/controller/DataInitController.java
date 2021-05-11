@@ -66,7 +66,6 @@ public class DataInitController {
 				postDTO.setGpsX(Double.parseDouble(faker.address().longitude()));
 				postDTO.setGpsY(Double.parseDouble(faker.address().latitude()));
 				postDTO.setImages("");
-				postDTO.setPostId(i);
 				postDTO.setPrice(faker.number().numberBetween(20, 100) + "");
 				postDTO.setStatus("1");
 				postDTO.setScore(new BigDecimal(0.0));
