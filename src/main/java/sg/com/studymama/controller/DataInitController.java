@@ -67,7 +67,7 @@ public class DataInitController {
 				postDTO.setPostId(i);
 				postDTO.setPrice(faker.number().numberBetween(20, 100) + "");
 				postDTO.setStatus("1");
-				postDTO.setTitle(faker.educator().course());
+				postDTO.setTitle(faker.commerce().department());
 				postDTO.setWebsite("www." + faker.internet().domainName());
 				PostsEntity post = postService.save(postDTO);
 				LOG.info(postDTO.toString());
