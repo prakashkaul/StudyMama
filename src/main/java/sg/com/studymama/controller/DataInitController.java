@@ -72,7 +72,7 @@ public class DataInitController {
 				PostsEntity post = postService.save(postDTO);
 				LOG.info(postDTO.toString());
 				springDataPostService.createPost(new PostData(post));
-				recommendService.save(new Post(post));// neo4j?
+				recommendService.save(new Post(post));
 			}
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage());
