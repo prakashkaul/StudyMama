@@ -115,6 +115,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.logstash-task-def.outputs.task-definition }}
-        service: studymama-service
+        service: studymama-service-lb
         cluster: studymama-cluster
         wait-for-service-stability: true
