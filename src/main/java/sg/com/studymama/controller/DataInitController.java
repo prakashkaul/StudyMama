@@ -2,6 +2,7 @@ package sg.com.studymama.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +33,7 @@ import sg.com.studymama.service.SpringDataPostService;
 public class DataInitController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DataInitController.class);
+	private static final ArrayList<String> STATUS = new ArrayList<String>(Arrays.asList("OPEN", "CLOSED"));
 
 	@Autowired
 	private PostService postService;
@@ -59,7 +61,7 @@ public class DataInitController {
 					postDTO.setGpsY(Double.parseDouble(faker.address().latitude()));
 					postDTO.setImages("");
 					postDTO.setPrice(faker.number().numberBetween(20, 100) + "");
-					postDTO.setStatus(faker.number().numberBetween(0, 2) + "");
+					postDTO.setStatus(STATUS.get(faker.number().numberBetween(0, 2)));
 					postDTO.setScore(new BigDecimal(0.0));
 					postDTO.setTitle(faker.commerce().department());
 					postDTO.setWebsite("www." + faker.internet().domainName());
