@@ -29,4 +29,9 @@ public class TestController {
 	public @ResponseBody String greeting() {
 		return "Hello, World. Welcome to StudyMama!";
 	}
+	
+	@RequestMapping(value = "/demo", method = RequestMethod.GET)
+	public @ResponseBody String demo() {
+		return "Hello! This is a demo.";
+	}
 }

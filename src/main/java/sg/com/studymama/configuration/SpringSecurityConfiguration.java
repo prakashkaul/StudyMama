@@ -36,10 +36,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
 	}
+
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -54,25 +56,21 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
-				.antMatchers("/hellouser", "/updateProfile", "/getProfile", "/categoryList", "/profilePicture").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/authenticate", "/register", "/search", "/postDelete","/post","/post/*","/postData","/postFormSubmit","/fakecategorysearch",
-						"/commentSubmit","/commentDelete/*","/rateSubmit","/Recommendation","/greeting", "/initPostData/*",
-						"/postService/*", "/actuator/health",
-						"/v2/api-docs", //for swagger stuff
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/swagger-ui/*",
-                        "/swagger-ui/index.html",
-                        "/v3/api-docs/",
-                        "/webjars/**").permitAll().anyRequest().authenticated().and()
-				.exceptionHandling().and().httpBasic().authenticationEntryPoint(unauthorizedHandler).and().
+				.antMatchers("/hellouser", "/updateProfile", "/getProfile", "/categoryList", "/profilePicture")
+				.hasAnyRole("ADMIN", "USER")
+				.antMatchers("/authenticate", "/register", "/search", "/postDelete", "/post", "/post/*", "/postData",
+						"/postFormSubmit", "/fakecategorysearch", "/commentSubmit", "/commentDelete/*", "/rateSubmit",
+						"/Recommendation", "/greeting", "/demo", "/initPostData/*", "/postService/*",
+						"/actuator/health", "/v2/api-docs", // for swagger stuff
+						"/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html",
+						"/swagger-ui/*", "/swagger-ui/index.html", "/v3/api-docs/", "/webjars/**")
+				.permitAll().anyRequest().authenticated().and().exceptionHandling().and().httpBasic()
+				.authenticationEntryPoint(unauthorizedHandler).and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
 
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.cors().configurationSource(request->new CorsConfiguration().applyPermitDefaultValues());
+		httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
