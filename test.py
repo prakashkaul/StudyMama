@@ -2,7 +2,6 @@ import paramiko
 import time
 import sys
 
-# asdkhashkdash
 def sshexeccmd(ip, docker_hub_id):
     try:
         ssh = paramiko.SSHClient()
