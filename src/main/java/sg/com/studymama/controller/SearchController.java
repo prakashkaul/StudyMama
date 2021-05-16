@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.github.javafaker.Faker;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class SearchController {
 
@@ -22,6 +24,9 @@ public class SearchController {
 	private static final List<String> CATEGORY_LIST = new ArrayList<String>(Arrays.asList("Groceries", "Restuarant",
 			"Takeout", "Hotels", "Banks", "Gas Station", "Parking Lots", "Pharmacies", "Post Offices", "Medical"));
 
+	private static final List<String> NAME_LIST = new ArrayList<String>(
+			Arrays.asList("Dannel", "Aung", "Prakash", "XinYi"));
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/search")
 	public String searchCategory(@RequestParam("cat") String cat) {
 		String search = "SEARCH CATEGORY: " + cat;
@@ -29,11 +34,17 @@ public class SearchController {
 		return search;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/categoryList")
+	public List<String> searchCategory() {
+		return CATEGORY_LIST;
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/fakecategorysearch")
 	public String fakeCategorySearch() {
+		String user = NAME_LIST.get(FAKER.number().numberBetween(0, NAME_LIST.size() - 1));
 		String category = CATEGORY_LIST.get(FAKER.number().numberBetween(0, CATEGORY_LIST.size() - 1));
-		String search = "FAKE SEARCH CATEGORY: " + category;
-		LOG.info(category);
+		String search = "FAKE SEARCH CATEGORY: " + user + " " + category;
+		LOG.info(user + " " + category);
 		return search;
 	}
 }

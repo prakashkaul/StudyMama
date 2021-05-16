@@ -1,0 +1,52 @@
+{
+            "serviceName": "studymama-service-lb",
+            "loadBalancers": [
+                {
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:336218866683:targetgroup/ecs-studym-studymama-service-lb/f9809174aa282198",
+                    "containerName": "studymama",
+                    "containerPort": 8080
+                },
+				{
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:336218866683:targetgroup/studymama-kibana/24bf223f1c5a188e",
+                    "containerName": "kibana",
+                    "containerPort": 5601
+                },
+				{
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:336218866683:targetgroup/studymama-neo4j/a28597001ad73615",
+                    "containerName": "neo4j",
+                    "containerPort": 7474
+                }
+            ],
+            "desiredCount": 1,
+            "launchType": "FARGATE",
+            "platformVersion": "LATEST",
+            "taskDefinition": "arn:aws:ecs:ap-southeast-1:336218866683:task-definition/studymama-task-definition:136",
+            "deploymentConfiguration": {
+                "deploymentCircuitBreaker": {
+                    "enable": false,
+                    "rollback": false
+                },
+                "maximumPercent": 200,
+                "minimumHealthyPercent": 100
+            },
+            "placementConstraints": [],
+            "placementStrategy": [],
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "subnets": [
+                        "subnet-abcf65f2",
+                        "subnet-78e41b1e",
+                        "subnet-3f52be77"
+                    ],
+                    "securityGroups": [
+                        "sg-039e377ba1ed1e06e"
+                    ],
+                    "assignPublicIp": "ENABLED"
+                }
+            },
+            "healthCheckGracePeriodSeconds": 8888,
+            "schedulingStrategy": "REPLICA",
+            "enableECSManagedTags": true,
+            "propagateTags": "SERVICE",
+            "enableExecuteCommand": false
+        }

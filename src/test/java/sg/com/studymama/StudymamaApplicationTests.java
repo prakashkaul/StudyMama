@@ -3,11 +3,13 @@ package sg.com.studymama;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
+//@SpringBootTest
 class StudymamaApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
+
 
 }
